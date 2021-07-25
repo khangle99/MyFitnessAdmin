@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".excercise.ExcerciseDetailActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_margin="18dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Excercise Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="Excercise Name"
+            android:layout_margin="12dp"
+            android:id="@+id/excName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_margin="18dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Excercise Difficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="Excercise Difficulty"
+            android:layout_margin="12dp"
+            android:id="@+id/excDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_margin="18dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Equipment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="Equipment"
+            android:layout_margin="12dp"
+            android:id="@+id/excEquipment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_margin="18dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Tutorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:hint="Tutorial"
+            android:layout_margin="12dp"
+            android:minLines="8"
+            android:scrollbars="vertical"
+            android:inputType="textMultiLine"
+            android:id="@+id/excTutorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <pereira.agnaldo.previewimgcol.ImageCollectionView
+            android:id="@+id/excImageCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:backgroundColor="@color/white"
+            app:baseRowHeight="150dp"
+            app:imageMargin="1dp"
+            app:pinchToZoom="true"
+            app:showExternalBorderMargins="true"
+            app:maxImagePerRow="3"
+            app:maxRows="2" />
+    </LinearLayout>
+</ScrollView>
