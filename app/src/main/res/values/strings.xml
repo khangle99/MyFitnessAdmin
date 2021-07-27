@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyFitness Admin</string>
+    <string name="internal_storage">internal_storage</string>
 </resources>

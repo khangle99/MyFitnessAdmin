@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".excercise.ExcerciseDetailActivity">
+    tools:context=".excercise.excdetail.ExcerciseDetailActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="Excercise Difficulty"
+            android:text="Difficulty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
@@ -65,18 +65,17 @@
             android:id="@+id/excTutorial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
-        <pereira.agnaldo.previewimgcol.ImageCollectionView
-            android:id="@+id/excImageCollection"
+        <Button
+            android:drawableStart="@drawable/ic_baseline_image_24"
+            android:layout_gravity="center"
+            app:icon="@drawable/ic_baseline_image_24"
+            android:text="Pick Image"
+            android:id="@+id/pickImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imageList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            app:backgroundColor="@color/white"
-            app:baseRowHeight="150dp"
-            app:imageMargin="1dp"
-            app:pinchToZoom="true"
-            app:showExternalBorderMargins="true"
-            app:maxImagePerRow="3"
-            app:maxRows="2" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

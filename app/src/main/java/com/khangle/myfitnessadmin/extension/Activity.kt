@@ -10,3 +10,10 @@ fun Activity.slideActivity(intent: Intent) {
         R.anim.slide_in_right,
         R.anim.slide_out_left);
 }
+
+fun Activity.slideActivityForResult(intent: Intent, requestCode: Int) {
+    this.startActivityForResult(intent, requestCode)
+    overridePendingTransition(
+        R.anim.slide_in_right,
+        R.anim.slide_out_left);
+}
