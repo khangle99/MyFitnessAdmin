@@ -1,4 +1,4 @@
-package com.khangle.myfitnessadmin.excercise.category
+package com.khangle.myfitnessadmin.nutrition.category
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,18 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.khangle.myfitnessadmin.data.MyFitnessRepository
 import com.khangle.myfitnessadmin.model.ExcerciseCategory
+import com.khangle.myfitnessadmin.model.NutritionCategory
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ExcerciseCategoryVM @Inject constructor(private val repository: MyFitnessRepository): ViewModel() {
-    private var _categoryList =  MutableLiveData<List<ExcerciseCategory>>()
-    val categoryList: LiveData<List<ExcerciseCategory>> = _categoryList
+class NutritionCategoryVM @Inject constructor(private val repository: MyFitnessRepository): ViewModel() {
+    private var _categoryList =  MutableLiveData<List<NutritionCategory>>()
+    val categoryList: LiveData<List<NutritionCategory>> = _categoryList
     fun getCategoryList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _categoryList.postValue(repository.getExcerciseCategory())
+            _categoryList.postValue(repository.getNutritionCategory())
         }
     }
 }

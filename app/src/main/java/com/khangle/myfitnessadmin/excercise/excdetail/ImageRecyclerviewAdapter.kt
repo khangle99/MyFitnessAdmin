@@ -35,6 +35,7 @@ class ImageRecyclerviewAdapter : RecyclerView.Adapter<ImageRecyclerviewAdapter.I
             holder.setImageUri(uriList.get(position))
         } else {
             // use url
+            val get = urlList.get(position)
             holder.loadUrl(urlList.get(position))
         }
     }

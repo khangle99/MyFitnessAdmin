@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/cardItem"
+    android:layout_margin="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/menuNameTv"
+            android:layout_weight="3"
+            tools:text="Sample"
+            android:textSize="24sp"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"/>
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="5dp"
+                tools:text="100 views"
+                android:gravity="end"
+                android:id="@+id/views"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                tools:text="4 item"
+                android:gravity="end"
+                android:layout_margin="5dp"
+                android:id="@+id/itemCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFitnessAdmin">
-        <activity android:name=".nutrition.MenuDetailActivity"></activity>
-        <activity android:name=".nutrition.MenuListActivity" />
-        <activity android:name=".nutrition.NutritionCategoryActiviy" />
+        <activity android:name=".nutrition.detail.MenuDetailActivity"></activity>
+        <activity android:name=".nutrition.menuList.MenuListActivity" />
+        <activity android:name=".nutrition.category.NutritionCategoryActiviy" />
         <activity android:name=".excercise.excdetail.ExcerciseDetailActivity" />
         <activity android:name=".excercise.category.ExcerciseCategoryActivity" />
         <activity android:name=".excercise.exclist.ExcerciseListActivity" />

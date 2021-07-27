@@ -1,12 +1,11 @@
-package com.khangle.myfitnessadmin.excercise.exclist
+package com.khangle.myfitnessadmin.nutrition.menuList
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.khangle.myfitnessadmin.data.MyFitnessRepository
-import com.khangle.myfitnessadmin.model.Excercise
-import com.khangle.myfitnessadmin.model.ExcerciseCategory
+import com.khangle.myfitnessadmin.model.Menu
 import com.khangle.myfitnessadmin.model.ResponseMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,47 +14,47 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ExcerciseListVM @Inject constructor(private val myFitnessRepository: MyFitnessRepository) :
-    ViewModel() {
-    private var _excList = MutableLiveData<List<Excercise>>()
-    val excerciseList: LiveData<List<Excercise>> = _excList
-    fun loadList(categoryId: String) {
+class MenuListVM @Inject constructor(private val repository: MyFitnessRepository) : ViewModel() {
+    private var _menuList = MutableLiveData<List<Menu>>()
+    val menuList: LiveData<List<Menu>> = _menuList
+
+    fun loadList(nutriId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = myFitnessRepository.loadExcerciseList(categoryId)
-            _excList.postValue(list)
+            val list = repository.loadMenuList(nutriId)
+            _menuList.postValue(list)
         }
     }
 
-    fun createExcerciseCategory(
+    fun createNutritionCategory(
         name: String,
         uriString: String,
         handle: (ResponseMessage) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = myFitnessRepository.postExcerciseCategory(name, uriString)
+            val res = repository.postNutritionCategory(name, uriString)
             withContext(Dispatchers.Main) {
                 handle(res)
             }
         }
     }
 
-    fun updateCategory(
+    fun updateNutritionCategory(
         id: String,
         name: String,
         uriString: String?,
         handle: (ResponseMessage) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = myFitnessRepository.updateExcerciseCategory(id, name, uriString)
+            val res = repository.updateNutritionCategory(id, name, uriString)
             withContext(Dispatchers.Main) {
                 handle(res)
             }
         }
     }
 
-    fun deleteCategory(id: String, handle: (ResponseMessage) -> Unit) {
+    fun deleteNutritionCategory(id: String, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = myFitnessRepository.deleteExcerciseCategory(id)
+            val res = repository.deleteNutritionCategory(id)
             withContext(Dispatchers.Main) {
                 handle(res)
             }

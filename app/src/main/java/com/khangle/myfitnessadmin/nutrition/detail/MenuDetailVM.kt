@@ -1,52 +1,51 @@
-package com.khangle.myfitnessadmin.excercise.excdetail
+package com.khangle.myfitnessadmin.nutrition.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.khangle.myfitnessadmin.data.MyFitnessRepository
 import com.khangle.myfitnessadmin.model.Excercise
+import com.khangle.myfitnessadmin.model.Menu
 import com.khangle.myfitnessadmin.model.ResponseMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
-class ExcerciseDetailVM @Inject constructor(private val repository: MyFitnessRepository) :
-    ViewModel() {
-    fun createExcercise(
-        catId: String,
-        excercise: Excercise,
+class MenuDetailVM @Inject constructor(private val repository: MyFitnessRepository) : ViewModel() {
+    fun createMenu(
+        nutriId: String,
+        menu: Menu,
         uriStringList: List<String>,
         handle: (ResponseMessage) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.postExcercise(catId, excercise, uriStringList)
+            val res = repository.postMenu(nutriId, menu, uriStringList)
             withContext(Dispatchers.Main) {
                 handle(res)
             }
         }
     }
 
-    fun updateExcercise(
-        catId: String,
+    fun updateMenu(
+        nutriId: String,
         id: String,
-        excercise: Excercise,
+        menu: Menu,
         uriStringList: List<String>?,
         handle: (ResponseMessage) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.updateExcercise(id, catId, excercise, uriStringList)
+            val res = repository.updateMenu(id, nutriId, menu, uriStringList)
             withContext(Dispatchers.Main) {
                 handle(res)
             }
         }
     }
 
-    fun deleteExcercise(catId: String, id: String, handle: (ResponseMessage) -> Unit) {
+    fun deleteMenu(nutriId: String, id: String, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.deleteExcercise(id, catId)
+            val res = repository.deleteMenu(id, nutriId)
             withContext(Dispatchers.Main) {
                 handle(res)
             }

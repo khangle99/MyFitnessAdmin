@@ -1,9 +1,7 @@
 package com.khangle.myfitnessadmin.data.network
 
 
-import com.khangle.myfitnessadmin.model.Excercise
-import com.khangle.myfitnessadmin.model.ExcerciseCategory
-import com.khangle.myfitnessadmin.model.ResponseMessage
+import com.khangle.myfitnessadmin.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -18,22 +16,22 @@ interface MyFitnessService {
     suspend fun fetchExcerciseList(@Query("categoryId") catId: String): List<Excercise>
 
     @Multipart
-    @POST("newCategory")
+    @POST("newExcerciseCategory")
     suspend fun postExcerciseCategory(
         @Part photo: MultipartBody.Part,
         @Part("name") name: RequestBody
     ): ResponseMessage
 
     @Multipart
-    @PUT("updateCategory")
+    @PUT("updateExcerciseCategory")
     suspend fun updateExcerciseCategory(
-        @Part photo: MultipartBody.Part,
+        @Part photo: List<MultipartBody.Part>,
         @Part("name") name: RequestBody,
         @Part("id") cateId: RequestBody
     ): ResponseMessage
 
-    @DELETE("deleteCategory")
-    suspend fun deleteCategory(@Query("id") id: String): ResponseMessage
+    @DELETE("deleteExcerciseCategory")
+    suspend fun deleteExcerciseCategory(@Query("id") id: String): ResponseMessage
 
     @Multipart
     @POST("newExcercise")
@@ -59,9 +57,68 @@ interface MyFitnessService {
     ): ResponseMessage
 
     @DELETE("deleteExcercise")
-    suspend fun deleteExcercise(@Query("id") id: String, @Query("categoryId") catId: String): ResponseMessage
+    suspend fun deleteExcercise(
+        @Query("id") id: String,
+        @Query("categoryId") catId: String
+    ): ResponseMessage
 
 /////////// nutrition
 
+    @GET("nutritionCategory")
+    suspend fun fetchNutritionCategory(): List<NutritionCategory>
+
+    @GET("menuList")
+    suspend fun fetchMenuList(@Query("nutriId") nutriId: String): List<Menu>
+
+    @Multipart
+    @POST("newNutritionCategory")
+    suspend fun postNutrionCategory(
+        @Part photo: MultipartBody.Part,
+        @Part("name") name: RequestBody
+    ): ResponseMessage
+
+    @Multipart
+    @PUT("updateNutritionCategory")
+    suspend fun updateNutrionCategory(
+        @Part photo: List<MultipartBody.Part>,
+        @Part("name") name: RequestBody,
+        @Part("id") nutriId: RequestBody
+    ): ResponseMessage
+
+    @DELETE("deleteNutritionCategory")
+    suspend fun deleteNutritionCategory(@Query("id") id: String): ResponseMessage
+
+    @Multipart
+    @POST("newMenu")
+    suspend fun postMenu(
+        @Part photos: List<MultipartBody.Part>,
+        @Part("name") name: RequestBody,
+        @Part("breakfast") breakfast: RequestBody,
+        @Part("lunch") lunch: RequestBody,
+        @Part("dinner") dinner: RequestBody,
+        @Part("snack") snack: RequestBody,
+        @Part("other") other: RequestBody,
+        @Part("nutriId") nutriId: RequestBody
+    ): ResponseMessage
+
+    @Multipart
+    @PUT("updateMenu")
+    suspend fun updateMenu(
+        @Part photos: List<MultipartBody.Part>,
+        @Part("name") name: RequestBody,
+        @Part("breakfast") breakfast: RequestBody,
+        @Part("lunch") lunch: RequestBody,
+        @Part("dinner") dinner: RequestBody,
+        @Part("snack") snack: RequestBody,
+        @Part("other") other: RequestBody,
+        @Part("nutriId") nutriId: RequestBody,
+        @Part("id") id: RequestBody
+    ): ResponseMessage
+
+    @DELETE("deleteMenu")
+    suspend fun deleteMenu(
+        @Query("id") id: String,
+        @Query("nutriId") nutriId: String
+    ): ResponseMessage
 
 }

@@ -1,4 +1,4 @@
-package com.khangle.myfitnessadmin.excercise.excdetail
+package com.khangle.myfitnessadmin.nutrition.detail
 
 import android.app.Activity
 import android.content.Intent
@@ -8,41 +8,40 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.khangle.myfitnessadmin.BaseActivity
 import com.khangle.myfitnessadmin.ComposableBaseActivity
 import com.khangle.myfitnessadmin.R
 import com.khangle.myfitnessadmin.common.RELOAD_RS
 import com.khangle.myfitnessadmin.common.UseState
+import com.khangle.myfitnessadmin.excercise.excdetail.ImageRecyclerviewAdapter
 import com.khangle.myfitnessadmin.extension.setReadOnly
-import com.khangle.myfitnessadmin.extension.toBitmap
-import com.khangle.myfitnessadmin.model.Excercise
+import com.khangle.myfitnessadmin.model.Menu
 import dagger.hilt.android.AndroidEntryPoint
-import pereira.agnaldo.previewimgcol.ImageCollectionView
 
 @AndroidEntryPoint
-class ExcerciseDetailActivity : ComposableBaseActivity() {
-    val viewmodel: ExcerciseDetailVM by viewModels()
+class MenuDetailActivity : ComposableBaseActivity() {
+    val viewmodel: MenuDetailVM by viewModels()
     lateinit var nameEditText: EditText
-    lateinit var difficultyEditText: EditText
-    lateinit var equipmentEditText: EditText
-    lateinit var tutorialEditText: EditText
+    lateinit var breakfastEditText: EditText
+    lateinit var lunchEditText: EditText
+    lateinit var dinnerEditText: EditText
+    lateinit var snackEditText: EditText
+    lateinit var otherEditText: EditText
     lateinit var imageRecyclerView: RecyclerView
     lateinit var imageListAdapter: ImageRecyclerviewAdapter
     lateinit var catId: String
     var pickedUriStringList: List<String>? = null
-    var excercise: Excercise? = null
+    var menu: Menu? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_excercise_detail)
+        setContentView(R.layout.activity_menu_detail)
         setupUI()
-        val excerciserReceive = intent.extras?.getParcelable<Excercise>("excercise")
-        if (excerciserReceive != null) {
-            excercise = excerciserReceive
-            loadExcercise(excerciserReceive)
+        val menuReceive = intent.extras?.getParcelable<Menu>("menu")
+        if (menuReceive != null) {
+            menu = menuReceive
+            loadMenu(menuReceive)
         }
         catId = intent.extras?.getString("catId") ?: ""
         val stateRaw = intent.extras?.getInt("state") // default la 0 ?
@@ -50,10 +49,12 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     }
 
     private fun setupUI() {
-        nameEditText = findViewById(R.id.excName)
-        difficultyEditText = findViewById(R.id.excDifficulty)
-        equipmentEditText = findViewById(R.id.excEquipment)
-        tutorialEditText = findViewById(R.id.excTutorial)
+        nameEditText = findViewById(R.id.menuName)
+        breakfastEditText = findViewById(R.id.breakfast)
+        lunchEditText = findViewById(R.id.lunch)
+        dinnerEditText = findViewById(R.id.dinner)
+        snackEditText = findViewById(R.id.snack)
+        otherEditText = findViewById(R.id.other)
         imageRecyclerView = findViewById(R.id.imageList)
         findViewById<Button>(R.id.pickImage).setOnClickListener {
             val intent = Intent()
@@ -70,7 +71,15 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val flexboxLayoutManager = FlexboxLayoutManager(baseContext)
         imageRecyclerView.layoutManager = flexboxLayoutManager
     }
-
+    private fun loadMenu(menu: Menu) {
+        nameEditText.setText(menu.name)
+        breakfastEditText.setText(menu.breakfast)
+        lunchEditText.setText(menu.lunch)
+        dinnerEditText.setText(menu.dinner)
+        otherEditText.setText(menu.other)
+        snackEditText.setText(menu.snack)
+        imageListAdapter.applyUrlList(menu.picUrls)
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 99) {
@@ -83,6 +92,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             }
         }
     }
+
     private fun getUriListFromData(data: Intent?): List<Uri> {
         val list = mutableListOf<Uri>()
         if(data!!.clipData != null) {
@@ -97,31 +107,24 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         return list
     }
 
-    private fun loadExcercise(excercise: Excercise) {
-        nameEditText.setText(excercise.name)
-        difficultyEditText.setText(excercise.difficulty)
-        equipmentEditText.setText(excercise.equipment)
-        tutorialEditText.setText(excercise.tutorial)
-        imageListAdapter.applyUrlList(excercise.picSteps)
-    }
-
     private fun validateInput(): Boolean { // false khi fail
         if (nameEditText.getText().toString().trim { it <= ' ' }.length == 0) {
             nameEditText.setError("Không được để trống tên")
             return false
         }
-        if (difficultyEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            difficultyEditText.setError("Không được để trống difficulty")
+        if (breakfastEditText.getText().toString().trim { it <= ' ' }.length == 0) {
+            breakfastEditText.setError("Không được để trống buổi sáng ")
             return false
         }
-        if (equipmentEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            equipmentEditText.setError("Không được để trống equipment")
+        if (lunchEditText.getText().toString().trim { it <= ' ' }.length == 0) {
+            lunchEditText.setError("Không được để trống buổi trưa ")
             return false
         }
-        if (tutorialEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            tutorialEditText.setError("Không được để trống tutorial")
+        if (dinnerEditText.getText().toString().trim { it <= ' ' }.length == 0) {
+            dinnerEditText.setError("Không được để trống buổi tối")
             return false
         }
+        // khong check other
         if (state == UseState.ADD && pickedUriStringList == null) {
             Toast.makeText(baseContext, "Chưa chọn ảnh", Toast.LENGTH_SHORT).show()
             return false
@@ -132,13 +135,15 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     override fun onAdded() {
         if (!validateInput()) return
         val name = nameEditText.text.toString()
-        val equip = equipmentEditText.text.toString()
-        val diff = difficultyEditText.text.toString()
-        val tutor = tutorialEditText.text.toString()
-        val excercise = Excercise("",name,diff,equip,tutor, listOf())
-        viewmodel.createExcercise(
+        val breakfast = breakfastEditText.text.toString()
+        val lunch = lunchEditText.text.toString()
+        val dinner = dinnerEditText.text.toString()
+        val snack = snackEditText.text.toString()
+        val other = otherEditText.text.toString()
+        val menu =  Menu("",name,breakfast,lunch,dinner,snack,other, listOf())
+        viewmodel.createMenu(
             catId,
-            excercise,
+            menu,
             pickedUriStringList!!
         ) { message ->
             if (message.id != null) {
@@ -161,14 +166,16 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     override fun onUpdated() {
         if (!validateInput()) return
-        excercise!!.name = nameEditText.text.toString()
-        excercise!!.equipment = equipmentEditText.text.toString()
-        excercise!!.difficulty = difficultyEditText.text.toString()
-        excercise!!.tutorial = tutorialEditText.text.toString()
-        viewmodel.updateExcercise(
+        menu!!.name = nameEditText.text.toString()
+        menu!!.breakfast = breakfastEditText.text.toString()
+        menu!!.lunch = lunchEditText.text.toString()
+        menu!!.dinner = dinnerEditText.text.toString()
+        menu!!.other = otherEditText.text.toString()
+        menu!!.snack = snackEditText.text.toString()
+        viewmodel.updateMenu(
             catId,
-            excercise!!.id,
-            excercise!!,
+            menu!!.id,
+            menu!!,
             pickedUriStringList
         ) { message ->
             if (message.id != null) {
@@ -190,7 +197,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     }
 
     override fun onDeleted() {
-        viewmodel.deleteExcercise(catId, excercise!!.id) { message ->
+        viewmodel.deleteMenu(catId, menu!!.id) { message ->
             if (message.id != null) {
                 Toast.makeText(
                     baseContext,
@@ -209,24 +216,28 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         }
     }
 
-    override fun getManageObjectName(): String {
-        return "Excercise"
-    }
-
     override fun invalidateView() {
         when (state) {
             UseState.EDIT, UseState.ADD -> {
                 nameEditText.setReadOnly(false)
-                difficultyEditText.setReadOnly(false)
-                equipmentEditText.setReadOnly(false)
-                tutorialEditText.setReadOnly(false)
+                breakfastEditText.setReadOnly(false)
+                lunchEditText.setReadOnly(false)
+                dinnerEditText.setReadOnly(false)
+                otherEditText.setReadOnly(false)
+                snackEditText.setReadOnly(false)
             }
             else -> {
                 nameEditText.setReadOnly(true)
-                difficultyEditText.setReadOnly(true)
-                equipmentEditText.setReadOnly(true)
-                tutorialEditText.setReadOnly(true)
+                breakfastEditText.setReadOnly(true)
+                lunchEditText.setReadOnly(true)
+                dinnerEditText.setReadOnly(true)
+                otherEditText.setReadOnly(true)
+                snackEditText.setReadOnly(true)
             }
         }
+    }
+
+    override fun getManageObjectName(): String {
+        return "Menu"
     }
 }

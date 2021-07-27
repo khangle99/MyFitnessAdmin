@@ -1,17 +1,15 @@
-package com.khangle.myfitnessadmin.excercise.exclist
+package com.khangle.myfitnessadmin.nutrition.menuList
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,35 +23,37 @@ import com.khangle.myfitnessadmin.common.RELOAD_RS
 import com.khangle.myfitnessadmin.common.RESULT_BACK_RQ
 import com.khangle.myfitnessadmin.common.UseState
 import com.khangle.myfitnessadmin.excercise.excdetail.ExcerciseDetailActivity
+import com.khangle.myfitnessadmin.excercise.exclist.ExcerciseListAdapter
+import com.khangle.myfitnessadmin.excercise.exclist.ExcerciseListVM
 import com.khangle.myfitnessadmin.extension.setReadOnly
-import com.khangle.myfitnessadmin.extension.slideActivity
 import com.khangle.myfitnessadmin.extension.slideActivityForResult
 import com.khangle.myfitnessadmin.model.ExcerciseCategory
+import com.khangle.myfitnessadmin.model.NutritionCategory
+import com.khangle.myfitnessadmin.nutrition.detail.MenuDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExcerciseListActivity : ComposableBaseActivity() {
-    lateinit var excerciseList: RecyclerView
+class MenuListActivity : ComposableBaseActivity() {
+    lateinit var menuList: RecyclerView
     lateinit var categoryPhoto: ImageView
     lateinit var categoryName: EditText
-    val viewmodel: ExcerciseListVM by viewModels()
+    val viewmodel: MenuListVM by viewModels()
     var pickedUri: Uri? = null
     lateinit var currentCategoryId: String
-    lateinit var adapter: ExcerciseListAdapter
-    lateinit var addExcerciseBtn: ExtendedFloatingActionButton
+    lateinit var adapter: MenuListAdapter
+    lateinit var addMenuBtn: ExtendedFloatingActionButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_excercise_list)
-
+        setContentView(R.layout.activity_menu_list)
         setupUI()
-        val category = intent.extras?.getParcelable<ExcerciseCategory>("category")
+        val category = intent.extras?.getParcelable<NutritionCategory>("category")
         if (category != null) {
             currentCategoryId = category.id
             loadListForCategory(category)
         }
         val stateRaw = intent.extras?.getInt("state") // default la 0 ?
         changeState(UseState.values().firstOrNull { it.raw == stateRaw } ?: UseState.VIEW)
-        viewmodel.excerciseList.observe(this) {
+        viewmodel.menuList.observe(this) {
             if (it.isEmpty()) {
                 Toast.makeText(baseContext, "Empty List", Toast.LENGTH_SHORT).show()
             }
@@ -62,29 +62,28 @@ class ExcerciseListActivity : ComposableBaseActivity() {
 
     }
 
-
     private fun setupUI() {
-        excerciseList = findViewById(R.id.excerciseRecycler)
-        categoryPhoto = findViewById(R.id.categoryPhoto)
-        categoryName = findViewById(R.id.categoryName)
-        addExcerciseBtn = findViewById(R.id.addExcercise)
+        menuList = findViewById(R.id.menuRecycler)
+        categoryPhoto = findViewById(R.id.nutCategoryPhoto)
+        categoryName = findViewById(R.id.nutCategoryName)
+        addMenuBtn = findViewById(R.id.addMenu)
         setupEvent()
-        adapter = ExcerciseListAdapter {
-            val intent = Intent(this, ExcerciseDetailActivity::class.java)
-            val bundle = bundleOf("excercise" to it, "catId" to currentCategoryId)
+        adapter = MenuListAdapter {
+            val intent = Intent(this, MenuDetailActivity::class.java)
+            val bundle = bundleOf("menu" to it, "catId" to currentCategoryId)
             intent.putExtras(bundle)
-            slideActivityForResult(intent,RESULT_BACK_RQ)
+            slideActivityForResult(intent, RESULT_BACK_RQ)
         }
-        excerciseList.adapter = adapter
-        excerciseList.layoutManager = LinearLayoutManager(this)
+        menuList.adapter = adapter
+        menuList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun setupEvent() {
-        addExcerciseBtn.setOnClickListener {
+        addMenuBtn.setOnClickListener {
             // logic khi o che do add thi them parent nay truoc khi
-            val intent = Intent(this, ExcerciseDetailActivity::class.java)
+            val intent = Intent(this, MenuDetailActivity::class.java)
             intent.putExtras(bundleOf("catId" to currentCategoryId, "state" to UseState.ADD.raw))
-            slideActivityForResult(intent,RESULT_BACK_RQ)
+            slideActivityForResult(intent, RESULT_BACK_RQ)
         }
         categoryPhoto.setOnClickListener {
             val intent = Intent()
@@ -95,6 +94,15 @@ class ExcerciseListActivity : ComposableBaseActivity() {
                 99
             )
         }
+    }
+
+    private fun loadListForCategory(category: NutritionCategory) {
+        viewmodel.loadList(category.id)
+        categoryPhoto.load(category.photoUrl) {
+            crossfade(true)
+            placeholder(R.drawable.ic_launcher_foreground)
+        }
+        categoryName.setText(category.name)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -113,15 +121,6 @@ class ExcerciseListActivity : ComposableBaseActivity() {
         }
     }
 
-    private fun loadListForCategory(category: ExcerciseCategory) {
-        viewmodel.loadList(category.id)
-        categoryPhoto.load(category.photoUrl) {
-            crossfade(true)
-            placeholder(R.drawable.ic_launcher_foreground)
-        }
-        categoryName.setText(category.name)
-    }
-
     private fun validateInput(): Boolean { // false khi fail
         if (categoryName.getText().toString().trim { it <= ' ' }.length == 0) {
             categoryName.setError("Không được để trống tên")
@@ -134,29 +133,9 @@ class ExcerciseListActivity : ComposableBaseActivity() {
         return true
     }
 
-    override fun invalidateView() {
-        when (state) {
-            UseState.EDIT -> {
-                addExcerciseBtn.isVisible = true
-                categoryName.setReadOnly(false)
-                categoryPhoto.isClickable = true
-            }
-            UseState.ADD -> {
-                addExcerciseBtn.isVisible = false
-                categoryName.setReadOnly(false)
-                categoryPhoto.isClickable = true
-            }
-            else -> {
-                categoryName.setReadOnly(true)
-                addExcerciseBtn.isVisible = false
-                categoryPhoto.isClickable = false
-            }
-        }
-    }
-
     override fun onAdded() {
         if (!validateInput()) return
-        viewmodel.createExcerciseCategory(
+        viewmodel.createNutritionCategory(
             categoryName.text.toString(),
             pickedUri!!.toString()
         ) { message ->
@@ -180,7 +159,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
 
     override fun onUpdated() {
         if (!validateInput()) return
-        viewmodel.updateCategory(
+        viewmodel.updateNutritionCategory(
             currentCategoryId,
             categoryName.text.toString(),
             pickedUri?.toString()
@@ -204,7 +183,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
     }
 
     override fun onDeleted() {
-        viewmodel.deleteCategory(currentCategoryId) { message ->
+        viewmodel.deleteNutritionCategory(currentCategoryId) { message ->
             if (message.id != null) {
                 Toast.makeText(
                     baseContext,
@@ -223,7 +202,29 @@ class ExcerciseListActivity : ComposableBaseActivity() {
         }
     }
 
-    override fun getManageObjectName(): String {
-        return "Excercise Category"
+
+    override fun invalidateView() {
+        when (state) {
+            UseState.EDIT -> {
+                addMenuBtn.isVisible = true
+                categoryName.setReadOnly(false)
+                categoryPhoto.isClickable = true
+            }
+            UseState.ADD -> {
+                addMenuBtn.isVisible = false
+                categoryName.setReadOnly(false)
+                categoryPhoto.isClickable = true
+            }
+            else -> {
+                addMenuBtn.isVisible = false
+                categoryName.setReadOnly(true)
+                categoryPhoto.isClickable = false
+            }
+        }
     }
+
+    override fun getManageObjectName(): String {
+        return "Nutrition Category"
+    }
+
 }
