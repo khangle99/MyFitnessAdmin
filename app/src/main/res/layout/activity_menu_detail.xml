@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/nutwall3"
     tools:context=".nutrition.detail.MenuDetailActivity">
     <LinearLayout
         android:orientation="vertical"
@@ -18,6 +19,8 @@
             android:textSize="24sp"
             android:textStyle="bold" />
         <EditText
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:layout_margin="12dp"
             android:id="@+id/menuName"
             android:layout_width="match_parent"
@@ -31,8 +34,11 @@
             android:textSize="24sp"
             android:textStyle="bold" />
         <EditText
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:layout_margin="12dp"
             android:id="@+id/breakfast"
+            android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -44,8 +50,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:layout_margin="12dp"
             android:id="@+id/lunch"
+            android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
@@ -56,8 +65,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:layout_margin="12dp"
             android:id="@+id/dinner"
+            android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
@@ -68,8 +80,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:layout_margin="12dp"
             android:id="@+id/snack"
+            android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
@@ -80,8 +95,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:layout_margin="12dp"
             android:id="@+id/other"
+            android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <Button

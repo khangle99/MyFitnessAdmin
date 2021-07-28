@@ -12,7 +12,16 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-
+        <TextView
+            android:padding="10dp"
+            android:background="@drawable/semi_round_bkg"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:drawableStart="@drawable/ic_admin"
+            android:text="Admin Management"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <androidx.cardview.widget.CardView
             android:id="@+id/excerciseBtn"
             android:layout_width="250dp"
@@ -35,11 +44,8 @@
                     android:text="Excercise"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
-
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
-
         <androidx.cardview.widget.CardView
             android:id="@+id/nutritionBtn"
             android:layout_width="250dp"
@@ -63,7 +69,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 </ScrollView>

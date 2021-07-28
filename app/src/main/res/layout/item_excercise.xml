@@ -15,7 +15,7 @@
             android:layout_margin="10dp"
             android:layout_gravity="center"
             android:id="@+id/excerciseNameTv"
-            android:layout_weight="3"
+            android:layout_weight="4"
             tools:text="Sample"
             android:textSize="24sp"
             android:layout_height="wrap_content"
@@ -27,20 +27,40 @@
           android:orientation="vertical"
           android:layout_width="0dp"
           android:layout_height="wrap_content">
-          <TextView
-              android:layout_margin="5dp"
-              tools:text="Sample"
-              android:gravity="end"
-              android:id="@+id/excEquipmentTv"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_baseline_bar_chart_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    tools:text="Sample"
+                    android:layout_margin="5dp"
+                    android:id="@+id/excDifficultyTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+          <LinearLayout
+              android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
-          <TextView
-              tools:text="Sample"
-              android:gravity="end"
-              android:layout_margin="5dp"
-              android:id="@+id/excDifficultyTv"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
+              android:layout_height="wrap_content">
+              <TextView
+                  android:layout_gravity="center"
+                  android:drawableStart="@drawable/ic_baseline_remove_red_eye_24"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <TextView
+                  android:layout_margin="5dp"
+                  tools:text="Sample"
+                  android:id="@+id/viewCountTv"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
+
       </LinearLayout>
 
     </LinearLayout>

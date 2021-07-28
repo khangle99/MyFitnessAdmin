@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/wallpaper4"
     android:layout_height="match_parent"
     tools:context=".excercise.excdetail.ExcerciseDetailActivity">
     <LinearLayout
@@ -17,6 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:hint="Excercise Name"
             android:layout_margin="12dp"
             android:id="@+id/excName"
@@ -33,6 +36,8 @@
         <EditText
             android:hint="Excercise Difficulty"
             android:layout_margin="12dp"
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:id="@+id/excDifficulty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -46,6 +51,8 @@
         <EditText
             android:hint="Equipment"
             android:layout_margin="12dp"
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:id="@+id/excEquipment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -61,6 +68,9 @@
             android:layout_margin="12dp"
             android:minLines="8"
             android:scrollbars="vertical"
+            android:gravity="start"
+            android:padding="10dp"
+            android:background="@drawable/rounded_bkg"
             android:inputType="textMultiLine"
             android:id="@+id/excTutorial"
             android:layout_width="match_parent"

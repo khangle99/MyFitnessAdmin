@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -31,6 +32,7 @@ class MenuDetailActivity : ComposableBaseActivity() {
     lateinit var imageRecyclerView: RecyclerView
     lateinit var imageListAdapter: ImageRecyclerviewAdapter
     lateinit var catId: String
+    lateinit var pickImageBtn: Button
     var pickedUriStringList: List<String>? = null
     var menu: Menu? = null
 
@@ -56,7 +58,8 @@ class MenuDetailActivity : ComposableBaseActivity() {
         snackEditText = findViewById(R.id.snack)
         otherEditText = findViewById(R.id.other)
         imageRecyclerView = findViewById(R.id.imageList)
-        findViewById<Button>(R.id.pickImage).setOnClickListener {
+        pickImageBtn = findViewById(R.id.pickImage)
+        pickImageBtn.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
@@ -140,7 +143,7 @@ class MenuDetailActivity : ComposableBaseActivity() {
         val dinner = dinnerEditText.text.toString()
         val snack = snackEditText.text.toString()
         val other = otherEditText.text.toString()
-        val menu =  Menu("",name,breakfast,lunch,dinner,snack,other, listOf())
+        val menu =  Menu("",name,breakfast,lunch,dinner,snack,other, listOf(), 0)
         viewmodel.createMenu(
             catId,
             menu,
@@ -225,6 +228,7 @@ class MenuDetailActivity : ComposableBaseActivity() {
                 dinnerEditText.setReadOnly(false)
                 otherEditText.setReadOnly(false)
                 snackEditText.setReadOnly(false)
+                pickImageBtn.visibility = View.VISIBLE
             }
             else -> {
                 nameEditText.setReadOnly(true)
@@ -233,6 +237,7 @@ class MenuDetailActivity : ComposableBaseActivity() {
                 dinnerEditText.setReadOnly(true)
                 otherEditText.setReadOnly(true)
                 snackEditText.setReadOnly(true)
+                pickImageBtn.visibility = View.INVISIBLE
             }
         }
     }

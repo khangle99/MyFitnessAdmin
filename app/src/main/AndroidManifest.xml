@@ -13,13 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFitnessAdmin">
-        <activity android:name=".nutrition.detail.MenuDetailActivity"></activity>
+        <activity android:name=".nutrition.detail.MenuDetailActivity" />
         <activity android:name=".nutrition.menuList.MenuListActivity" />
-        <activity android:name=".nutrition.category.NutritionCategoryActiviy" />
+        <activity android:name=".nutrition.category.NutritionCategoryActiviy" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity android:name=".excercise.excdetail.ExcerciseDetailActivity" />
-        <activity android:name=".excercise.category.ExcerciseCategoryActivity" />
+        <activity android:name=".excercise.category.ExcerciseCategoryActivity" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity android:name=".excercise.exclist.ExcerciseListActivity" />
         <activity
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:name=".MainActivity"
             android:label="Fitness Admin">
             <intent-filter>

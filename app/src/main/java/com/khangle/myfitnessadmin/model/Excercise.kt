@@ -9,15 +9,17 @@ class Excercise(
     var difficulty: String,
     var equipment: String,
     var tutorial: String,
-    val picSteps: List<String>
+    val picSteps: List<String>,
+    val viewCount: Int
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.createStringArrayList() ?: listOf()
+        parcel.readString()?: "",
+        parcel.readString()?: "",
+        parcel.readString()?: "",
+        parcel.readString()?: "",
+        parcel.createStringArrayList()?: listOf(),
+        parcel.readInt()
     ) {
     }
 
@@ -28,6 +30,7 @@ class Excercise(
         parcel.writeString(equipment)
         parcel.writeString(tutorial)
         parcel.writeStringList(picSteps)
+        parcel.writeInt(viewCount)
     }
 
     override fun describeContents(): Int {

@@ -31,6 +31,7 @@ import com.khangle.myfitnessadmin.model.ExcerciseCategory
 import com.khangle.myfitnessadmin.model.NutritionCategory
 import com.khangle.myfitnessadmin.nutrition.detail.MenuDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
+import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class MenuListActivity : ComposableBaseActivity() {
@@ -42,6 +43,7 @@ class MenuListActivity : ComposableBaseActivity() {
     lateinit var currentCategoryId: String
     lateinit var adapter: MenuListAdapter
     lateinit var addMenuBtn: ExtendedFloatingActionButton
+    lateinit var guideTv: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_list)
@@ -67,6 +69,7 @@ class MenuListActivity : ComposableBaseActivity() {
         categoryPhoto = findViewById(R.id.nutCategoryPhoto)
         categoryName = findViewById(R.id.nutCategoryName)
         addMenuBtn = findViewById(R.id.addMenu)
+        guideTv = findViewById(R.id.guideTv)
         setupEvent()
         adapter = MenuListAdapter {
             val intent = Intent(this, MenuDetailActivity::class.java)
@@ -209,16 +212,19 @@ class MenuListActivity : ComposableBaseActivity() {
                 addMenuBtn.isVisible = true
                 categoryName.setReadOnly(false)
                 categoryPhoto.isClickable = true
+                guideTv.isVisible = true
             }
             UseState.ADD -> {
                 addMenuBtn.isVisible = false
                 categoryName.setReadOnly(false)
                 categoryPhoto.isClickable = true
+                guideTv.isVisible = true
             }
             else -> {
                 addMenuBtn.isVisible = false
                 categoryName.setReadOnly(true)
                 categoryPhoto.isClickable = false
+                guideTv.isVisible = false
             }
         }
     }

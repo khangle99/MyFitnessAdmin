@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -33,6 +34,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     lateinit var imageRecyclerView: RecyclerView
     lateinit var imageListAdapter: ImageRecyclerviewAdapter
     lateinit var catId: String
+    lateinit var pickImage: Button
     var pickedUriStringList: List<String>? = null
     var excercise: Excercise? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,16 +57,17 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         equipmentEditText = findViewById(R.id.excEquipment)
         tutorialEditText = findViewById(R.id.excTutorial)
         imageRecyclerView = findViewById(R.id.imageList)
-        findViewById<Button>(R.id.pickImage).setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(
-                Intent.createChooser(intent, "select pictures"),
-                99
-            )
-        }
+        pickImage = findViewById<Button>(R.id.pickImage)
+        pickImage.setOnClickListener {
+                val intent = Intent()
+                intent.type = "image/*"
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                intent.action = Intent.ACTION_GET_CONTENT
+                startActivityForResult(
+                    Intent.createChooser(intent, "select pictures"),
+                    99
+                )
+            }
         imageListAdapter = ImageRecyclerviewAdapter()
         imageRecyclerView.adapter = imageListAdapter
         val flexboxLayoutManager = FlexboxLayoutManager(baseContext)
@@ -135,7 +138,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val equip = equipmentEditText.text.toString()
         val diff = difficultyEditText.text.toString()
         val tutor = tutorialEditText.text.toString()
-        val excercise = Excercise("",name,diff,equip,tutor, listOf())
+        val excercise = Excercise("",name,diff,equip,tutor, listOf(), 0)
         viewmodel.createExcercise(
             catId,
             excercise,
@@ -220,12 +223,14 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 difficultyEditText.setReadOnly(false)
                 equipmentEditText.setReadOnly(false)
                 tutorialEditText.setReadOnly(false)
+                pickImage.visibility = View.VISIBLE
             }
             else -> {
                 nameEditText.setReadOnly(true)
                 difficultyEditText.setReadOnly(true)
                 equipmentEditText.setReadOnly(true)
                 tutorialEditText.setReadOnly(true)
+                pickImage.visibility = View.INVISIBLE
             }
         }
     }

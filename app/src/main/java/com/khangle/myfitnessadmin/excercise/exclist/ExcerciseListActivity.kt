@@ -30,6 +30,7 @@ import com.khangle.myfitnessadmin.extension.slideActivity
 import com.khangle.myfitnessadmin.extension.slideActivityForResult
 import com.khangle.myfitnessadmin.model.ExcerciseCategory
 import dagger.hilt.android.AndroidEntryPoint
+import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class ExcerciseListActivity : ComposableBaseActivity() {
@@ -41,6 +42,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
     lateinit var currentCategoryId: String
     lateinit var adapter: ExcerciseListAdapter
     lateinit var addExcerciseBtn: ExtendedFloatingActionButton
+    lateinit var guideTV: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_excercise_list)
@@ -68,6 +70,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
         categoryPhoto = findViewById(R.id.categoryPhoto)
         categoryName = findViewById(R.id.categoryName)
         addExcerciseBtn = findViewById(R.id.addExcercise)
+        guideTV = findViewById(R.id.guideTv)
         setupEvent()
         adapter = ExcerciseListAdapter {
             val intent = Intent(this, ExcerciseDetailActivity::class.java)
@@ -140,16 +143,19 @@ class ExcerciseListActivity : ComposableBaseActivity() {
                 addExcerciseBtn.isVisible = true
                 categoryName.setReadOnly(false)
                 categoryPhoto.isClickable = true
+                guideTV.isVisible = true
             }
             UseState.ADD -> {
                 addExcerciseBtn.isVisible = false
                 categoryName.setReadOnly(false)
                 categoryPhoto.isClickable = true
+                guideTV.isVisible = true
             }
             else -> {
                 categoryName.setReadOnly(true)
                 addExcerciseBtn.isVisible = false
                 categoryPhoto.isClickable = false
+                guideTV.isVisible = false
             }
         }
     }

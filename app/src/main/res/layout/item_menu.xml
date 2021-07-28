@@ -27,15 +27,24 @@
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_margin="5dp"
-                tools:text="100 views"
-                android:gravity="end"
-                android:id="@+id/views"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_baseline_remove_red_eye_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_margin="5dp"
+                    tools:text="100 views"
+                    android:id="@+id/views"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
             <TextView
-                tools:text="4 item"
+                tools:text="like "
                 android:gravity="end"
                 android:layout_margin="5dp"
                 android:id="@+id/itemCount"
