@@ -40,8 +40,10 @@ class MyFitnessRepository @Inject constructor(
     ): ResponseMessage {
         val photoList = mutableListOf<MultipartBody.Part>()
         if (photoPath != null) {
-            val requestBody = "name".toRequestBody("text/plain".toMediaTypeOrNull())
-            val part = MultipartBody.Part.createFormData("photo", "null", requestBody)
+            val uri = photoPath.toUri()
+            val file = FileUtil.from(context, uri)
+            val fileRequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+            val part = MultipartBody.Part.createFormData("photo", file.name, fileRequestBody)
             photoList.add(part)
         }
         val catName = name.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -142,8 +144,10 @@ class MyFitnessRepository @Inject constructor(
     ): ResponseMessage {
         val photoList = mutableListOf<MultipartBody.Part>()
         if (photoPath != null) {
-            val requestBody = "name".toRequestBody("text/plain".toMediaTypeOrNull())
-            val part = MultipartBody.Part.createFormData("photo", "null", requestBody)
+            val uri = photoPath.toUri()
+            val file = FileUtil.from(context, uri)
+            val fileRequestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+            val part = MultipartBody.Part.createFormData("photo", file.name, fileRequestBody)
             photoList.add(part)
         }
         val nameRequestBody = name.toRequestBody("text/plain".toMediaTypeOrNull())

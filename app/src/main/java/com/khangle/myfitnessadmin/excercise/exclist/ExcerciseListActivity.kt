@@ -6,10 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
@@ -42,6 +40,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
     lateinit var currentCategoryId: String
     lateinit var adapter: ExcerciseListAdapter
     lateinit var addExcerciseBtn: ExtendedFloatingActionButton
+    lateinit var progressBar: ProgressBar
     lateinit var guideTV: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +55,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
         val stateRaw = intent.extras?.getInt("state") // default la 0 ?
         changeState(UseState.values().firstOrNull { it.raw == stateRaw } ?: UseState.VIEW)
         viewmodel.excerciseList.observe(this) {
+            progressBar.visibility = View.INVISIBLE
             if (it.isEmpty()) {
                 Toast.makeText(baseContext, "Empty List", Toast.LENGTH_SHORT).show()
             }
@@ -66,6 +66,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
 
 
     private fun setupUI() {
+        progressBar = findViewById(R.id.excListProgress)
         excerciseList = findViewById(R.id.excerciseRecycler)
         categoryPhoto = findViewById(R.id.categoryPhoto)
         categoryName = findViewById(R.id.categoryName)
@@ -160,6 +161,13 @@ class ExcerciseListActivity : ComposableBaseActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.save) {
+            progressBar.visibility = View.VISIBLE
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onAdded() {
         if (!validateInput()) return
         viewmodel.createExcerciseCategory(
@@ -172,8 +180,6 @@ class ExcerciseListActivity : ComposableBaseActivity() {
                     "Thêm thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -181,6 +187,8 @@ class ExcerciseListActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 
@@ -197,8 +205,6 @@ class ExcerciseListActivity : ComposableBaseActivity() {
                     "Update thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -206,10 +212,13 @@ class ExcerciseListActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 
     override fun onDeleted() {
+        progressBar.visibility = View.VISIBLE
         viewmodel.deleteCategory(currentCategoryId) { message ->
             if (message.id != null) {
                 Toast.makeText(
@@ -217,8 +226,6 @@ class ExcerciseListActivity : ComposableBaseActivity() {
                     "Delete thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -226,6 +233,8 @@ class ExcerciseListActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 

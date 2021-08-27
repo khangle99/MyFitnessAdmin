@@ -74,6 +74,12 @@
             android:id="@+id/excerciseRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        <ProgressBar
+            android:id="@+id/excListProgress"
+            app:layout_anchor="@id/excerciseRecycler"
+            app:layout_anchorGravity="center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/addExcercise"
             android:layout_width="wrap_content"

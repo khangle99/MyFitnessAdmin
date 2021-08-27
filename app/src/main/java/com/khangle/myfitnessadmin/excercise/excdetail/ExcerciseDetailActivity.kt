@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -35,6 +37,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     lateinit var imageListAdapter: ImageRecyclerviewAdapter
     lateinit var catId: String
     lateinit var pickImage: Button
+    lateinit var progressBar: ProgressBar
     var pickedUriStringList: List<String>? = null
     var excercise: Excercise? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +61,8 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         tutorialEditText = findViewById(R.id.excTutorial)
         imageRecyclerView = findViewById(R.id.imageList)
         pickImage = findViewById<Button>(R.id.pickImage)
+        progressBar = findViewById(R.id.excDetailProgress)
+        progressBar.visibility = View.GONE
         pickImage.setOnClickListener {
                 val intent = Intent()
                 intent.type = "image/*"
@@ -98,6 +103,13 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             list.add(uri)
         }
         return list
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.save) {
+            progressBar.visibility = View.VISIBLE
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun loadExcercise(excercise: Excercise) {
@@ -193,6 +205,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     }
 
     override fun onDeleted() {
+        progressBar.visibility = View.VISIBLE
         viewmodel.deleteExcercise(catId, excercise!!.id) { message ->
             if (message.id != null) {
                 Toast.makeText(
