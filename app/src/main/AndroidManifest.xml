@@ -15,9 +15,9 @@
         android:theme="@style/Theme.MyFitnessAdmin">
         <activity android:name=".nutrition.detail.MenuDetailActivity" />
         <activity android:name=".nutrition.menuList.MenuListActivity" />
-        <activity android:name=".nutrition.category.NutritionCategoryActiviy" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".nutrition.category.NutritionCategoryActiviy" android:theme="@style/Theme.MyFitnessAdmin.NoAction" />
         <activity android:name=".excercise.excdetail.ExcerciseDetailActivity" />
-        <activity android:name=".excercise.category.ExcerciseCategoryActivity" android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity android:name=".excercise.category.ExcerciseCategoryActivity" android:theme="@style/Theme.MyFitnessAdmin.NoAction" />
         <activity android:name=".excercise.exclist.ExcerciseListActivity" />
         <activity
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"

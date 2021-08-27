@@ -11,20 +11,16 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.khangle.myfitnessadmin.BaseActivity
-import com.khangle.myfitnessadmin.ComposableBaseActivity
+import com.khangle.myfitnessadmin.base.ComposableBaseActivity
 import com.khangle.myfitnessadmin.R
 import com.khangle.myfitnessadmin.common.RELOAD_RS
 import com.khangle.myfitnessadmin.common.UseState
 import com.khangle.myfitnessadmin.extension.setReadOnly
-import com.khangle.myfitnessadmin.extension.toBitmap
 import com.khangle.myfitnessadmin.model.Excercise
 import dagger.hilt.android.AndroidEntryPoint
-import pereira.agnaldo.previewimgcol.ImageCollectionView
 
 @AndroidEntryPoint
 class ExcerciseDetailActivity : ComposableBaseActivity() {
@@ -76,16 +72,17 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         imageListAdapter = ImageRecyclerviewAdapter()
         imageRecyclerView.adapter = imageListAdapter
         val flexboxLayoutManager = FlexboxLayoutManager(baseContext)
-        imageRecyclerView.layoutManager = flexboxLayoutManager
+        imageRecyclerView.layoutManager = LinearLayoutManager(baseContext,RecyclerView.HORIZONTAL, false)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 99) {
             if (resultCode == Activity.RESULT_OK) {
+                imageListAdapter
                 val uriList = getUriListFromData(data)
                 pickedUriStringList = uriList.map { it.toString()  }
-                imageListAdapter.applyUriList(uriList)
+                imageListAdapter.applyUrlList(pickedUriStringList!!)
             } else {
                 Toast.makeText(baseContext, "Cancel Pick Image", Toast.LENGTH_SHORT).show()
             }
@@ -162,8 +159,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                     "Thêm thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
+
             } else {
                 Toast.makeText(
                     baseContext,
@@ -171,6 +167,8 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 
@@ -192,8 +190,6 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                     "Update thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -201,6 +197,8 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 
@@ -213,8 +211,6 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                     "Delete thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -222,6 +218,8 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 

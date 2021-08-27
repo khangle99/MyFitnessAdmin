@@ -84,6 +84,12 @@
             android:layout_margin="18dp"
             android:drawableLeft="@drawable/ic_baseline_add_24"
             app:layout_anchorGravity="bottom|end" />
+        <ProgressBar
+            android:id="@+id/menuListProgress"
+            app:layout_anchorGravity="center"
+            app:layout_anchor="@id/menuRecycler"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

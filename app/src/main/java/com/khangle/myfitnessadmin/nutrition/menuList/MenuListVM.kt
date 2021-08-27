@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.khangle.myfitnessadmin.base.BaseViewModel
 import com.khangle.myfitnessadmin.data.MyFitnessRepository
 import com.khangle.myfitnessadmin.model.Menu
 import com.khangle.myfitnessadmin.model.ResponseMessage
@@ -14,7 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MenuListVM @Inject constructor(private val repository: MyFitnessRepository) : ViewModel() {
+class MenuListVM @Inject constructor(private val repository: MyFitnessRepository) : BaseViewModel() {
     private var _menuList = MutableLiveData<List<Menu>>()
     val menuList: LiveData<List<Menu>> = _menuList
 
@@ -31,10 +32,12 @@ class MenuListVM @Inject constructor(private val repository: MyFitnessRepository
         handle: (ResponseMessage) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.postNutritionCategory(name, uriString)
-            withContext(Dispatchers.Main) {
-                handle(res)
-            }
+           handleResponse(handle) {
+               val res = repository.postNutritionCategory(name, uriString)
+               withContext(Dispatchers.Main) {
+                   handle(res)
+               }
+           }
         }
     }
 
@@ -45,18 +48,22 @@ class MenuListVM @Inject constructor(private val repository: MyFitnessRepository
         handle: (ResponseMessage) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.updateNutritionCategory(id, name, uriString)
-            withContext(Dispatchers.Main) {
-                handle(res)
+            handleResponse(handle) {
+                val res = repository.updateNutritionCategory(id, name, uriString)
+                withContext(Dispatchers.Main) {
+                    handle(res)
+                }
             }
         }
     }
 
     fun deleteNutritionCategory(id: String, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.deleteNutritionCategory(id)
-            withContext(Dispatchers.Main) {
-                handle(res)
+            handleResponse(handle) {
+                val res = repository.deleteNutritionCategory(id)
+                withContext(Dispatchers.Main) {
+                    handle(res)
+                }
             }
         }
     }

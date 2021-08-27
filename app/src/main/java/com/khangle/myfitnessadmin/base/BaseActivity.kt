@@ -1,11 +1,10 @@
-package com.khangle.myfitnessadmin
+package com.khangle.myfitnessadmin.base
 
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.khangle.myfitnessadmin.common.RELOAD_RS
+import com.khangle.myfitnessadmin.R
 import com.khangle.myfitnessadmin.common.UseState
 
 open class BaseActivity : AppCompatActivity() {

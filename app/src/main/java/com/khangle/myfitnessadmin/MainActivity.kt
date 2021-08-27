@@ -3,6 +3,7 @@ package com.khangle.myfitnessadmin
 import android.content.Intent
 import android.os.Bundle
 import androidx.cardview.widget.CardView
+import com.khangle.myfitnessadmin.base.BaseActivity
 import com.khangle.myfitnessadmin.excercise.category.ExcerciseCategoryActivity
 import com.khangle.myfitnessadmin.extension.slideActivity
 import com.khangle.myfitnessadmin.nutrition.category.NutritionCategoryActiviy

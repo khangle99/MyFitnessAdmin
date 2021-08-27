@@ -4,31 +4,26 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.khangle.myfitnessadmin.BaseActivity
-import com.khangle.myfitnessadmin.ComposableBaseActivity
+import com.khangle.myfitnessadmin.base.ComposableBaseActivity
 import com.khangle.myfitnessadmin.R
 import com.khangle.myfitnessadmin.common.RELOAD_RS
 import com.khangle.myfitnessadmin.common.RESULT_BACK_RQ
 import com.khangle.myfitnessadmin.common.UseState
 import com.khangle.myfitnessadmin.excercise.excdetail.ExcerciseDetailActivity
 import com.khangle.myfitnessadmin.extension.setReadOnly
-import com.khangle.myfitnessadmin.extension.slideActivity
 import com.khangle.myfitnessadmin.extension.slideActivityForResult
 import com.khangle.myfitnessadmin.model.ExcerciseCategory
 import dagger.hilt.android.AndroidEntryPoint
-import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class ExcerciseListActivity : ComposableBaseActivity() {

@@ -7,23 +7,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.request.CachePolicy
 import com.khangle.myfitnessadmin.R
 
 class ImageRecyclerviewAdapter : RecyclerView.Adapter<ImageRecyclerviewAdapter.ImageViewHolder>() {
-    var uriList =  listOf<Uri>()
+
     var urlList = listOf<String>()
-    var isUseUri = true
-    fun applyUriList(uriList: List<Uri>) {
-        isUseUri = true
-        this.uriList = uriList
-        notifyDataSetChanged()
-    }
 
     fun applyUrlList(urlList: List<String>) {
-        isUseUri = false
         this.urlList = urlList
         notifyDataSetChanged()
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
@@ -31,17 +26,11 @@ class ImageRecyclerviewAdapter : RecyclerView.Adapter<ImageRecyclerviewAdapter.I
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        if(isUseUri) {
-            holder.setImageUri(uriList.get(position))
-        } else {
-            // use url
-            val get = urlList.get(position)
-            holder.loadUrl(urlList.get(position))
-        }
+        holder.loadUrl(urlList.get(position).toString())
     }
 
     override fun getItemCount(): Int {
-        return if(isUseUri) uriList.size else urlList.size
+        return urlList.size
     }
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -54,10 +43,9 @@ class ImageRecyclerviewAdapter : RecyclerView.Adapter<ImageRecyclerviewAdapter.I
             imageView.load(urlString) {
                 crossfade(true)
                 placeholder(R.drawable.ic_launcher_foreground)
+                memoryCachePolicy(CachePolicy.DISABLED)
             }
         }
-        fun setImageUri(uri: Uri) {
-            imageView.setImageURI(uri)
-        }
+
     }
 }

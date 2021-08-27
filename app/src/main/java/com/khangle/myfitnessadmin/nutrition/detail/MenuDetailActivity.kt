@@ -4,14 +4,17 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.khangle.myfitnessadmin.ComposableBaseActivity
+import com.khangle.myfitnessadmin.base.ComposableBaseActivity
 import com.khangle.myfitnessadmin.R
 import com.khangle.myfitnessadmin.common.RELOAD_RS
 import com.khangle.myfitnessadmin.common.UseState
@@ -33,6 +36,7 @@ class MenuDetailActivity : ComposableBaseActivity() {
     lateinit var imageListAdapter: ImageRecyclerviewAdapter
     lateinit var catId: String
     lateinit var pickImageBtn: Button
+    lateinit var progressBar: ProgressBar
     var pickedUriStringList: List<String>? = null
     var menu: Menu? = null
 
@@ -59,6 +63,8 @@ class MenuDetailActivity : ComposableBaseActivity() {
         otherEditText = findViewById(R.id.other)
         imageRecyclerView = findViewById(R.id.imageList)
         pickImageBtn = findViewById(R.id.pickImage)
+        progressBar = findViewById(R.id.menuDetailProgress)
+        progressBar.visibility = View.GONE
         pickImageBtn.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
@@ -72,7 +78,7 @@ class MenuDetailActivity : ComposableBaseActivity() {
         imageListAdapter = ImageRecyclerviewAdapter()
         imageRecyclerView.adapter = imageListAdapter
         val flexboxLayoutManager = FlexboxLayoutManager(baseContext)
-        imageRecyclerView.layoutManager = flexboxLayoutManager
+        imageRecyclerView.layoutManager = LinearLayoutManager(baseContext, RecyclerView.HORIZONTAL,false)
     }
     private fun loadMenu(menu: Menu) {
         nameEditText.setText(menu.name)
@@ -89,7 +95,7 @@ class MenuDetailActivity : ComposableBaseActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 val uriList = getUriListFromData(data)
                 pickedUriStringList = uriList.map { it.toString()  }
-                imageListAdapter.applyUriList(uriList)
+                imageListAdapter.applyUrlList(pickedUriStringList!!)
             } else {
                 Toast.makeText(baseContext, "Cancel Pick Image", Toast.LENGTH_SHORT).show()
             }
@@ -135,6 +141,13 @@ class MenuDetailActivity : ComposableBaseActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.save) {
+            progressBar.visibility = View.VISIBLE
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onAdded() {
         if (!validateInput()) return
         val name = nameEditText.text.toString()
@@ -155,8 +168,6 @@ class MenuDetailActivity : ComposableBaseActivity() {
                     "Thêm thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -164,6 +175,8 @@ class MenuDetailActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 
@@ -187,8 +200,6 @@ class MenuDetailActivity : ComposableBaseActivity() {
                     "Update thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -196,10 +207,13 @@ class MenuDetailActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 
     override fun onDeleted() {
+        progressBar.visibility = View.VISIBLE
         viewmodel.deleteMenu(catId, menu!!.id) { message ->
             if (message.id != null) {
                 Toast.makeText(
@@ -207,8 +221,6 @@ class MenuDetailActivity : ComposableBaseActivity() {
                     "Delete thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -216,6 +228,8 @@ class MenuDetailActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 

@@ -2,6 +2,7 @@ package com.khangle.myfitnessadmin.nutrition.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.khangle.myfitnessadmin.base.BaseViewModel
 import com.khangle.myfitnessadmin.data.MyFitnessRepository
 import com.khangle.myfitnessadmin.model.Excercise
 import com.khangle.myfitnessadmin.model.Menu
@@ -13,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class MenuDetailVM @Inject constructor(private val repository: MyFitnessRepository) : ViewModel() {
+class MenuDetailVM @Inject constructor(private val repository: MyFitnessRepository) : BaseViewModel() {
     fun createMenu(
         nutriId: String,
         menu: Menu,
@@ -21,9 +22,11 @@ class MenuDetailVM @Inject constructor(private val repository: MyFitnessReposito
         handle: (ResponseMessage) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.postMenu(nutriId, menu, uriStringList)
-            withContext(Dispatchers.Main) {
-                handle(res)
+            handleResponse(handle) {
+                val res = repository.postMenu(nutriId, menu, uriStringList)
+                withContext(Dispatchers.Main) {
+                    handle(res)
+                }
             }
         }
     }
@@ -36,18 +39,22 @@ class MenuDetailVM @Inject constructor(private val repository: MyFitnessReposito
         handle: (ResponseMessage) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.updateMenu(id, nutriId, menu, uriStringList)
-            withContext(Dispatchers.Main) {
-                handle(res)
+            handleResponse(handle) {
+                val res = repository.updateMenu(id, nutriId, menu, uriStringList)
+                withContext(Dispatchers.Main) {
+                    handle(res)
+                }
             }
         }
     }
 
     fun deleteMenu(nutriId: String, id: String, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.deleteMenu(id, nutriId)
-            withContext(Dispatchers.Main) {
-                handle(res)
+            handleResponse(handle) {
+                val res = repository.deleteMenu(id, nutriId)
+                withContext(Dispatchers.Main) {
+                    handle(res)
+                }
             }
         }
     }

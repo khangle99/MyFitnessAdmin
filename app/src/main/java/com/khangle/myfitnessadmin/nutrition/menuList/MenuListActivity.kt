@@ -3,12 +3,10 @@ package com.khangle.myfitnessadmin.nutrition.menuList
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.MenuItem
+import android.view.View
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -16,22 +14,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.khangle.myfitnessadmin.BaseActivity
-import com.khangle.myfitnessadmin.ComposableBaseActivity
+import com.khangle.myfitnessadmin.base.ComposableBaseActivity
 import com.khangle.myfitnessadmin.R
 import com.khangle.myfitnessadmin.common.RELOAD_RS
 import com.khangle.myfitnessadmin.common.RESULT_BACK_RQ
 import com.khangle.myfitnessadmin.common.UseState
-import com.khangle.myfitnessadmin.excercise.excdetail.ExcerciseDetailActivity
-import com.khangle.myfitnessadmin.excercise.exclist.ExcerciseListAdapter
-import com.khangle.myfitnessadmin.excercise.exclist.ExcerciseListVM
 import com.khangle.myfitnessadmin.extension.setReadOnly
 import com.khangle.myfitnessadmin.extension.slideActivityForResult
-import com.khangle.myfitnessadmin.model.ExcerciseCategory
 import com.khangle.myfitnessadmin.model.NutritionCategory
 import com.khangle.myfitnessadmin.nutrition.detail.MenuDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
-import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class MenuListActivity : ComposableBaseActivity() {
@@ -44,6 +36,7 @@ class MenuListActivity : ComposableBaseActivity() {
     lateinit var adapter: MenuListAdapter
     lateinit var addMenuBtn: ExtendedFloatingActionButton
     lateinit var guideTv: TextView
+    lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_list)
@@ -56,6 +49,7 @@ class MenuListActivity : ComposableBaseActivity() {
         val stateRaw = intent.extras?.getInt("state") // default la 0 ?
         changeState(UseState.values().firstOrNull { it.raw == stateRaw } ?: UseState.VIEW)
         viewmodel.menuList.observe(this) {
+            progressBar.visibility = View.INVISIBLE
             if (it.isEmpty()) {
                 Toast.makeText(baseContext, "Empty List", Toast.LENGTH_SHORT).show()
             }
@@ -64,12 +58,20 @@ class MenuListActivity : ComposableBaseActivity() {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.save) {
+            progressBar.visibility = View.VISIBLE
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupUI() {
         menuList = findViewById(R.id.menuRecycler)
         categoryPhoto = findViewById(R.id.nutCategoryPhoto)
         categoryName = findViewById(R.id.nutCategoryName)
         addMenuBtn = findViewById(R.id.addMenu)
         guideTv = findViewById(R.id.guideTv)
+        progressBar = findViewById(R.id.menuListProgress)
         setupEvent()
         adapter = MenuListAdapter {
             val intent = Intent(this, MenuDetailActivity::class.java)
@@ -136,6 +138,7 @@ class MenuListActivity : ComposableBaseActivity() {
         return true
     }
 
+
     override fun onAdded() {
         if (!validateInput()) return
         viewmodel.createNutritionCategory(
@@ -148,8 +151,7 @@ class MenuListActivity : ComposableBaseActivity() {
                     "Thêm thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
+
             } else {
                 Toast.makeText(
                     baseContext,
@@ -157,6 +159,8 @@ class MenuListActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 
@@ -173,8 +177,7 @@ class MenuListActivity : ComposableBaseActivity() {
                     "Update thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
+
             } else {
                 Toast.makeText(
                     baseContext,
@@ -182,10 +185,13 @@ class MenuListActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 
     override fun onDeleted() {
+        progressBar.visibility = View.VISIBLE
         viewmodel.deleteNutritionCategory(currentCategoryId) { message ->
             if (message.id != null) {
                 Toast.makeText(
@@ -193,8 +199,6 @@ class MenuListActivity : ComposableBaseActivity() {
                     "Delete thành công với id: ${message.id}",
                     Toast.LENGTH_SHORT
                 ).show()
-                setResult(RELOAD_RS)
-                finish()
             } else {
                 Toast.makeText(
                     baseContext,
@@ -202,6 +206,8 @@ class MenuListActivity : ComposableBaseActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            setResult(RELOAD_RS)
+            finish()
         }
     }
 

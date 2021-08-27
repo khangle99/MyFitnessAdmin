@@ -1,6 +1,5 @@
 package com.khangle.myfitnessadmin.excercise.category
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,13 +10,12 @@ import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.khangle.myfitnessadmin.BaseActivity
+import com.khangle.myfitnessadmin.base.BaseActivity
 import com.khangle.myfitnessadmin.R
 import com.khangle.myfitnessadmin.common.RELOAD_RS
 import com.khangle.myfitnessadmin.common.RESULT_BACK_RQ
 import com.khangle.myfitnessadmin.common.UseState
 import com.khangle.myfitnessadmin.excercise.exclist.ExcerciseListActivity
-import com.khangle.myfitnessadmin.extension.slideActivity
 import com.khangle.myfitnessadmin.extension.slideActivityForResult
 import dagger.hilt.android.AndroidEntryPoint
 

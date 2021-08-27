@@ -28,7 +28,6 @@ class ExcerciseListVM @Inject constructor(private val myFitnessRepository: MyFit
         }
     }
 
-
     fun createExcerciseCategory(
         name: String,
         uriString: String,
@@ -41,7 +40,6 @@ class ExcerciseListVM @Inject constructor(private val myFitnessRepository: MyFit
                     handle(res)
                 }
             }
-
         }
     }
 
