@@ -10,7 +10,7 @@ class Excercise(
     var equipment: String,
     var tutorial: String,
     val picSteps: List<String>,
-    val viewCount: Int
+    val addedCount: Int
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
@@ -30,7 +30,7 @@ class Excercise(
         parcel.writeString(equipment)
         parcel.writeString(tutorial)
         parcel.writeStringList(picSteps)
-        parcel.writeInt(viewCount)
+        parcel.writeInt(addedCount)
     }
 
     override fun describeContents(): Int {

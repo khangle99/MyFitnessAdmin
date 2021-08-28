@@ -43,7 +43,7 @@ class ExcerciseListAdapter(val onItemclick: (item: Excercise) -> Unit):
             item = excercise
             nameTv.text = excercise.name
             difficultyTv.text = excercise.difficulty
-            viewcountTv.text = excercise.viewCount.toString()
+            viewcountTv.text = excercise.addedCount.toString()
         }
     }
 }

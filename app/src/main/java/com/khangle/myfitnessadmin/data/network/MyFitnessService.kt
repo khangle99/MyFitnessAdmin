@@ -9,6 +9,10 @@ import retrofit2.http.*
 interface MyFitnessService {
 
     //////// excercise
+
+    @GET("allexcercises")
+    suspend fun fetchAllExcercise(): List<Excercise>
+
     @GET("excercisesCategory")
     suspend fun fetchExcerciseCategory(): List<ExcerciseCategory>
 
@@ -63,6 +67,9 @@ interface MyFitnessService {
     ): ResponseMessage
 
 /////////// nutrition
+
+    @GET("allmenu")
+    suspend fun fetchAllMenu(): List<Menu>
 
     @GET("nutritionCategory")
     suspend fun fetchNutritionCategory(): List<NutritionCategory>

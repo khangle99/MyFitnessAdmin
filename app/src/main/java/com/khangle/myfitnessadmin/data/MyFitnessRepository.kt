@@ -20,6 +20,11 @@ class MyFitnessRepository @Inject constructor(
     val myFitnessService: MyFitnessService
 ) {
     ///////// excercise
+
+    suspend fun getAllExcercise(): List<Excercise> {
+        return myFitnessService.fetchAllExcercise()
+    }
+
     suspend fun getExcerciseCategory(): List<ExcerciseCategory> {
         return myFitnessService.fetchExcerciseCategory()
     }
@@ -123,6 +128,10 @@ class MyFitnessRepository @Inject constructor(
     }
 
 ////////////////// nutrition
+
+    suspend fun getAllMenu(): List<Menu> {
+        return myFitnessService.fetchAllMenu()
+    }
 
     suspend fun getNutritionCategory(): List<NutritionCategory> {
         return myFitnessService.fetchNutritionCategory()

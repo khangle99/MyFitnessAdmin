@@ -43,7 +43,7 @@ class MenuListAdapter(val onItemclick: (item: Menu) -> Unit) :
         fun bind(menu: Menu) {
             item = menu
             nameTv.text = menu.name
-            viewTv.text = menu.viewCount.toString()
+            viewTv.text = menu.view.toString()
         }
     }
 }

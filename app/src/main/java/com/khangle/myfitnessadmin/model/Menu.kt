@@ -12,7 +12,7 @@ class Menu(
     var snack: String,
     var other: String,
     val picUrls: List<String>,
-    val viewCount: Int
+    val view: Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
@@ -36,7 +36,7 @@ class Menu(
         parcel.writeString(snack)
         parcel.writeString(other)
         parcel.writeStringList(picUrls)
-        parcel.writeInt(viewCount)
+        parcel.writeInt(view)
     }
 
     override fun describeContents(): Int {
