@@ -46,6 +46,8 @@ class ExcerciseListActivity : ComposableBaseActivity() {
         if (category != null) {
             currentCategoryId = category.id
             loadListForCategory(category)
+        } else {
+            progressBar.visibility = View.INVISIBLE
         }
         val stateRaw = intent.extras?.getInt("state") // default la 0 ?
         changeState(UseState.values().firstOrNull { it.raw == stateRaw } ?: UseState.VIEW)

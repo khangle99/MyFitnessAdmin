@@ -26,6 +26,7 @@
             android:id="@+id/categoryNameTextview"
             android:layout_weight="1"
             tools:text="Sample"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:layout_height="wrap_content"
             android:layout_width="0dp"/>

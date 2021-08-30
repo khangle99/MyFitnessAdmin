@@ -27,13 +27,11 @@ class MenuListAdapter(val onItemclick: (item: Menu) -> Unit) :
     class MenuVH(itemView: View, val onItemclick: (item: Menu) -> Unit) :
         RecyclerView.ViewHolder(itemView) {
         val nameTv: TextView
-        val countTv: TextView
         val viewTv: TextView
         lateinit var item: Menu
 
         init {
             nameTv = itemView.findViewById(R.id.menuNameTv)
-            countTv = itemView.findViewById(R.id.itemCount)
             viewTv = itemView.findViewById(R.id.views)
             itemView.findViewById<CardView>(R.id.cardItem).setOnClickListener {
                 onItemclick(item)
