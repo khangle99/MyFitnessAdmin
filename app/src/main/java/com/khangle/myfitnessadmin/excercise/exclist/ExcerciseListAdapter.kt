@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.khangle.myfitnessadmin.R
+import com.khangle.myfitnessadmin.common.Difficulty
 import com.khangle.myfitnessadmin.model.Excercise
+import kotlin.time.nanoseconds
 
 
 class ExcerciseListAdapter(val onItemclick: (item: Excercise) -> Unit):
@@ -42,7 +44,7 @@ class ExcerciseListAdapter(val onItemclick: (item: Excercise) -> Unit):
         fun bind(excercise: Excercise) {
             item = excercise
             nameTv.text = excercise.name
-            difficultyTv.text = excercise.difficulty
+            difficultyTv.text = Difficulty.fromInt(excercise.difficulty).name
             viewcountTv.text = excercise.addedCount.toString()
         }
     }

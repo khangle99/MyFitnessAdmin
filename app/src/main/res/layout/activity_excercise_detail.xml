@@ -38,14 +38,14 @@
             android:text="Difficulty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <EditText
+
+        <Spinner
             android:hint="Excercise Difficulty"
-            android:layout_margin="12dp"
-            android:padding="10dp"
+            android:layout_margin="10dp"
             android:background="@drawable/rounded_bkg"
             android:id="@+id/excDifficulty"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="50dp"/>
         <TextView
             android:layout_margin="18dp"
             android:textSize="24sp"

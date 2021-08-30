@@ -78,7 +78,7 @@ class MyFitnessRepository @Inject constructor(
             photoList.add(part)
         }
         val excName = excercise.name.toRequestBody("text/plain".toMediaTypeOrNull())
-        val excDiff = excercise.difficulty.toRequestBody("text/plain".toMediaTypeOrNull())
+        val excDiff = excercise.difficulty.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val excEquip = excercise.equipment.toRequestBody("text/plain".toMediaTypeOrNull())
         val excTutor = excercise.tutorial.toRequestBody("text/plain".toMediaTypeOrNull())
         val catIdRequestBody = catId.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -107,7 +107,7 @@ class MyFitnessRepository @Inject constructor(
             photoList.add(part)
         }
         val excName = excercise.name.toRequestBody("text/plain".toMediaTypeOrNull())
-        val excDiff = excercise.difficulty.toRequestBody("text/plain".toMediaTypeOrNull())
+        val excDiff = excercise.difficulty.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val excEquip = excercise.equipment.toRequestBody("text/plain".toMediaTypeOrNull())
         val excTutor = excercise.tutorial.toRequestBody("text/plain".toMediaTypeOrNull())
         val catIdRequestBody = catId.toRequestBody("text/plain".toMediaTypeOrNull())

@@ -6,16 +6,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.viewModels
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.khangle.myfitnessadmin.base.ComposableBaseActivity
 import com.khangle.myfitnessadmin.R
+import com.khangle.myfitnessadmin.common.Difficulty
 import com.khangle.myfitnessadmin.common.RELOAD_RS
 import com.khangle.myfitnessadmin.common.UseState
 import com.khangle.myfitnessadmin.extension.setReadOnly
@@ -26,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ExcerciseDetailActivity : ComposableBaseActivity() {
     val viewmodel: ExcerciseDetailVM by viewModels()
     lateinit var nameEditText: EditText
-    lateinit var difficultyEditText: EditText
+    lateinit var difficultySpinner: Spinner
     lateinit var equipmentEditText: EditText
     lateinit var tutorialEditText: EditText
     lateinit var imageRecyclerView: RecyclerView
@@ -34,6 +33,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     lateinit var catId: String
     lateinit var pickImage: Button
     lateinit var progressBar: ProgressBar
+    lateinit var selectedDifficulty: Difficulty
     var pickedUriStringList: List<String>? = null
     var excercise: Excercise? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +52,21 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     private fun setupUI() {
         nameEditText = findViewById(R.id.excName)
-        difficultyEditText = findViewById(R.id.excDifficulty)
+        difficultySpinner = findViewById(R.id.excDifficulty)
+        difficultySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                selectedDifficulty = Difficulty.fromInt(position)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) { }
+        }
+        val difficultyStringList = Difficulty.values().map { it.name }
+        difficultySpinner.adapter = ArrayAdapter(baseContext,R.layout.item_spinner, difficultyStringList)
         equipmentEditText = findViewById(R.id.excEquipment)
         tutorialEditText = findViewById(R.id.excTutorial)
         imageRecyclerView = findViewById(R.id.imageList)
@@ -111,7 +125,10 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     private fun loadExcercise(excercise: Excercise) {
         nameEditText.setText(excercise.name)
-        difficultyEditText.setText(excercise.difficulty)
+
+        selectedDifficulty = Difficulty.fromInt(excercise.difficulty)
+        difficultySpinner.setSelection( excercise.difficulty)
+
         equipmentEditText.setText(excercise.equipment)
         tutorialEditText.setText(excercise.tutorial)
         imageListAdapter.applyUrlList(excercise.picSteps)
@@ -122,10 +139,10 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             nameEditText.setError("Không được để trống tên")
             return false
         }
-        if (difficultyEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            difficultyEditText.setError("Không được để trống difficulty")
-            return false
-        }
+//        if (difficultyEditText.getText().toString().trim { it <= ' ' }.length == 0) {
+//            difficultyEditText.setError("Không được để trống difficulty")
+//            return false
+//        }
         if (equipmentEditText.getText().toString().trim { it <= ' ' }.length == 0) {
             equipmentEditText.setError("Không được để trống equipment")
             return false
@@ -145,7 +162,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         if (!validateInput()) return
         val name = nameEditText.text.toString()
         val equip = equipmentEditText.text.toString()
-        val diff = difficultyEditText.text.toString()
+        val diff = selectedDifficulty.raw
         val tutor = tutorialEditText.text.toString()
         val excercise = Excercise("",name,diff,equip,tutor, listOf(), 0)
         viewmodel.createExcercise(
@@ -176,7 +193,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         if (!validateInput()) return
         excercise!!.name = nameEditText.text.toString()
         excercise!!.equipment = equipmentEditText.text.toString()
-        excercise!!.difficulty = difficultyEditText.text.toString()
+        excercise!!.difficulty = selectedDifficulty.raw
         excercise!!.tutorial = tutorialEditText.text.toString()
         viewmodel.updateExcercise(
             catId,
@@ -231,14 +248,14 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         when (state) {
             UseState.EDIT, UseState.ADD -> {
                 nameEditText.setReadOnly(false)
-                difficultyEditText.setReadOnly(false)
+                difficultySpinner.isEnabled = true
                 equipmentEditText.setReadOnly(false)
                 tutorialEditText.setReadOnly(false)
                 pickImage.visibility = View.VISIBLE
             }
             else -> {
                 nameEditText.setReadOnly(true)
-                difficultyEditText.setReadOnly(true)
+                difficultySpinner.isEnabled = false
                 equipmentEditText.setReadOnly(true)
                 tutorialEditText.setReadOnly(true)
                 pickImage.visibility = View.INVISIBLE
