@@ -24,6 +24,7 @@ tools:context=".report.mostviewmenu.MostViewMenuActivity">
         android:layout_height="400dp">
         <com.github.mikephil.charting.charts.HorizontalBarChart
             android:id="@+id/most_view_menu_chart"
+            android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="400dp"/>
     </androidx.cardview.widget.CardView>

@@ -158,15 +158,9 @@ class ExcerciseListActivity : ComposableBaseActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save) {
-            progressBar.visibility = View.VISIBLE
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onAdded() {
         if (!validateInput()) return
+        progressBar.visibility = View.VISIBLE
         viewmodel.createExcerciseCategory(
             categoryName.text.toString(),
             pickedUri!!.toString()
@@ -191,6 +185,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
 
     override fun onUpdated() {
         if (!validateInput()) return
+        progressBar.visibility = View.VISIBLE
         viewmodel.updateCategory(
             currentCategoryId,
             categoryName.text.toString(),

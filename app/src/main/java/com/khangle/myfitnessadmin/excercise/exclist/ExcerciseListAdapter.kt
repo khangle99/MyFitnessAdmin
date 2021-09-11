@@ -31,10 +31,12 @@ class ExcerciseListAdapter(val onItemclick: (item: Excercise) -> Unit):
     class ExcerciseVH(itemView: View, val onItemclick: (item: Excercise) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val nameTv: TextView
         val difficultyTv: TextView
+        val addtimesTv: TextView
         lateinit var item: Excercise
         init {
             nameTv = itemView.findViewById(R.id.excerciseNameTv)
             difficultyTv = itemView.findViewById(R.id.excDifficultyTv)
+            addtimesTv = itemView.findViewById(R.id.addTimes)
             itemView.findViewById<CardView>(R.id.cardItem).setOnClickListener {
                 onItemclick(item)
             }
@@ -43,6 +45,7 @@ class ExcerciseListAdapter(val onItemclick: (item: Excercise) -> Unit):
             item = excercise
             nameTv.text = excercise.name
             difficultyTv.text = Difficulty.fromInt(excercise.difficulty).name
+            addtimesTv.setText(excercise.addedCount.toString())
         }
     }
 }

@@ -141,15 +141,9 @@ class MenuDetailActivity : ComposableBaseActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save) {
-            progressBar.visibility = View.VISIBLE
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onAdded() {
         if (!validateInput()) return
+        progressBar.visibility = View.VISIBLE
         val name = nameEditText.text.toString()
         val breakfast = breakfastEditText.text.toString()
         val lunch = lunchEditText.text.toString()
@@ -182,6 +176,7 @@ class MenuDetailActivity : ComposableBaseActivity() {
 
     override fun onUpdated() {
         if (!validateInput()) return
+        progressBar.visibility = View.VISIBLE
         menu!!.name = nameEditText.text.toString()
         menu!!.breakfast = breakfastEditText.text.toString()
         menu!!.lunch = lunchEditText.text.toString()

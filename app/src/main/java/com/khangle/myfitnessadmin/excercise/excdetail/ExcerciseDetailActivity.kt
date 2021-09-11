@@ -116,12 +116,12 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         return list
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save) {
-            progressBar.visibility = View.VISIBLE
-        }
-        return super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.save) {
+//            progressBar.visibility = View.VISIBLE
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
 
     private fun loadExcercise(excercise: Excercise) {
         nameEditText.setText(excercise.name)
@@ -159,7 +159,9 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     }
 
     override fun onAdded() {
+
         if (!validateInput()) return
+        progressBar.visibility = View.VISIBLE
         val name = nameEditText.text.toString()
         val equip = equipmentEditText.text.toString()
         val diff = selectedDifficulty.raw
@@ -191,6 +193,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     override fun onUpdated() {
         if (!validateInput()) return
+        progressBar.visibility = View.VISIBLE
         excercise!!.name = nameEditText.text.toString()
         excercise!!.equipment = equipmentEditText.text.toString()
         excercise!!.difficulty = selectedDifficulty.raw

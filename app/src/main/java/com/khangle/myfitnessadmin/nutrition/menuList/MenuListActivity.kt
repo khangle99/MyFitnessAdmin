@@ -61,13 +61,6 @@ class MenuListActivity : ComposableBaseActivity() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save) {
-            progressBar.visibility = View.VISIBLE
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun setupUI() {
         menuList = findViewById(R.id.menuRecycler)
         categoryPhoto = findViewById(R.id.nutCategoryPhoto)
@@ -144,6 +137,7 @@ class MenuListActivity : ComposableBaseActivity() {
 
     override fun onAdded() {
         if (!validateInput()) return
+        progressBar.visibility = View.VISIBLE
         viewmodel.createNutritionCategory(
             categoryName.text.toString(),
             pickedUri!!.toString()
@@ -169,6 +163,7 @@ class MenuListActivity : ComposableBaseActivity() {
 
     override fun onUpdated() {
         if (!validateInput()) return
+        progressBar.visibility = View.VISIBLE
         viewmodel.updateNutritionCategory(
             currentCategoryId,
             categoryName.text.toString(),

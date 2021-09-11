@@ -94,7 +94,6 @@ class MostUseExcerciseActivity : AppCompatActivity() {
         horizontalChart.axisRight.isInverted = true
         horizontalChart.xAxis.valueFormatter = valueFormater
         horizontalChart.xAxis.granularity = 1f
-
         horizontalChart.description.isEnabled = false
         horizontalChart.setDrawGridBackground(false)
         horizontalChart.axisRight.isEnabled = false
