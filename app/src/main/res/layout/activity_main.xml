@@ -47,7 +47,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/nutritionBtn"
+            android:id="@+id/bodyStatBtn"
             android:layout_width="250dp"
             android:layout_height="250dp"
             app:cardCornerRadius="10dp"
@@ -58,14 +58,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
-                    android:src="@drawable/ic_food"
+                    android:src="@drawable/body"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"/>
                 <TextView
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textSize="30sp"
-                    android:text="Nutrition"
+                    android:text="Body Stat"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
             </LinearLayout>

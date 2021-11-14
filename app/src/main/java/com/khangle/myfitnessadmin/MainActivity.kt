@@ -6,7 +6,7 @@ import androidx.cardview.widget.CardView
 import com.khangle.myfitnessadmin.base.BaseActivity
 import com.khangle.myfitnessadmin.excercise.category.ExcerciseCategoryActivity
 import com.khangle.myfitnessadmin.extension.slideActivity
-import com.khangle.myfitnessadmin.nutrition.category.NutritionCategoryActiviy
+import com.khangle.myfitnessadmin.nutrition.category.BodyStatActiviy
 import com.khangle.myfitnessadmin.report.ReportMainActivity
 
 class MainActivity : BaseActivity() {
@@ -19,8 +19,10 @@ class MainActivity : BaseActivity() {
             slideActivity(Intent(this, ExcerciseCategoryActivity::class.java))
         }
 
-        findViewById<CardView>(R.id.nutritionBtn).setOnClickListener {
-            slideActivity(Intent(this, NutritionCategoryActiviy::class.java))
+
+
+        findViewById<CardView>(R.id.bodyStatBtn).setOnClickListener {
+            slideActivity(Intent(this, BodyStatActiviy::class.java))
         }
 
         findViewById<CardView>(R.id.reportBtn).setOnClickListener {
