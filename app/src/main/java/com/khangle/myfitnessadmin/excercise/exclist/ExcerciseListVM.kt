@@ -1,18 +1,18 @@
 package com.khangle.myfitnessadmin.excercise.exclist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.khangle.myfitnessadmin.base.BaseViewModel
 import com.khangle.myfitnessadmin.data.MyFitnessRepository
 import com.khangle.myfitnessadmin.model.Excercise
 import com.khangle.myfitnessadmin.model.ExcerciseCategory
 import com.khangle.myfitnessadmin.model.ResponseMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -24,7 +24,21 @@ class ExcerciseListVM @Inject constructor(private val myFitnessRepository: MyFit
     fun loadList(categoryId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val list = myFitnessRepository.loadExcerciseList(categoryId)
-            _excList.postValue(list)
+
+            val excercises = list.map { exc ->
+                val a = async {
+                   val ensure =  myFitnessRepository.getStatEnsureList(exc.id,categoryId)
+                 //   exc.achieveEnsure =  ensure
+                    exc.achieveEnsure = Gson().toJson(ensure)
+                    exc
+                }
+                a
+            }.awaitAll()
+            _excList.postValue(excercises)
+            excercises.forEach {
+                val a = it.achieveEnsure
+                print("")
+            }
         }
     }
 

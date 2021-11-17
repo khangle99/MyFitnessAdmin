@@ -40,17 +40,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <Spinner
-            android:hint="Excercise Difficulty"
-            android:layout_margin="10dp"
-            android:background="@drawable/rounded_bkg"
-            android:id="@+id/excDifficulty"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <Spinner
+               android:hint="Excercise Difficulty"
+               android:layout_margin="10dp"
+               android:layout_weight="1"
+               android:background="@drawable/rounded_bkg"
+               android:id="@+id/excDifficulty"
+               android:layout_width="match_parent"
+               android:layout_height="50dp"/>
+           <EditText
+               android:id="@+id/caloFactor"
+               android:hint="Calo Factor"
+               android:layout_weight="1"
+               android:inputType="number"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+       </LinearLayout>
         <TextView
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:gravity="center"
             android:text="Equipment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -62,6 +76,48 @@
             android:id="@+id/excEquipment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_margin="18dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Timing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <EditText
+              android:hint="NoTurn"
+              android:layout_margin="12dp"
+              android:padding="10dp"
+              android:layout_weight="1"
+              android:inputType="number"
+              android:background="@drawable/rounded_bkg"
+              android:id="@+id/excNoTurn"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+          <EditText
+              android:hint="NoSec"
+              android:layout_margin="12dp"
+              android:padding="10dp"
+              android:inputType="number"
+              android:layout_weight="1"
+              android:background="@drawable/rounded_bkg"
+              android:id="@+id/excNoSec"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+          <EditText
+              android:hint="NoGap"
+              android:layout_margin="12dp"
+              android:padding="10dp"
+              android:layout_weight="1"
+              android:inputType="number"
+              android:background="@drawable/rounded_bkg"
+              android:id="@+id/excNoGap"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+      </LinearLayout>
 <!--        <TextView-->
 <!--            android:layout_margin="18dp"-->
 <!--            android:textSize="24sp"-->

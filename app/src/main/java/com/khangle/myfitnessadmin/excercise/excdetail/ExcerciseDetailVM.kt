@@ -1,9 +1,12 @@
 package com.khangle.myfitnessadmin.excercise.excdetail
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.khangle.myfitnessadmin.base.BaseViewModel
 import com.khangle.myfitnessadmin.data.MyFitnessRepository
+import com.khangle.myfitnessadmin.model.BodyStat
 import com.khangle.myfitnessadmin.model.Excercise
 import com.khangle.myfitnessadmin.model.ResponseMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +19,15 @@ import javax.inject.Inject
 @HiltViewModel
 class ExcerciseDetailVM @Inject constructor(private val repository: MyFitnessRepository) :
     BaseViewModel() {
+
+    private var _bodyStatList =  MutableLiveData<List<BodyStat>>()
+    val bodyStatList: LiveData<List<BodyStat>> = _bodyStatList
+    fun getBodyStatList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _bodyStatList.postValue(repository.getBodyStat())
+        }
+    }
+
     fun createExcercise(
         catId: String,
         excercise: Excercise,

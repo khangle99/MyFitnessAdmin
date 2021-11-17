@@ -44,7 +44,12 @@ interface MyFitnessService {
         @Part("name") name: RequestBody,
         @Part("difficulty") diff: RequestBody,
         @Part("equipment") equip: RequestBody,
-        @Part("tutorial") tutor: RequestBody,
+        @Part("noTurn") noTurn: RequestBody,
+        @Part("noSec") noSec: RequestBody,
+        @Part("noGap") noGap: RequestBody,
+        @Part("achievementMap") achievementString: RequestBody,
+        @Part("caloFactor") caloFactor: RequestBody,
+        @Part("tutorial[]") tutorial: List<String>,
         @Part("catId") catId: RequestBody
     ): ResponseMessage
 
@@ -55,7 +60,12 @@ interface MyFitnessService {
         @Part("name") name: RequestBody,
         @Part("difficulty") diff: RequestBody,
         @Part("equipment") equip: RequestBody,
-        @Part("tutorial") tutor: RequestBody,
+        @Part("noTurn") noTurn: RequestBody,
+        @Part("noSec") noSec: RequestBody,
+        @Part("noGap") noGap: RequestBody,
+        @Part("achievementMap") achievementString: RequestBody,
+        @Part("tutorial[]") tutorial: List<String>,
+        @Part("caloFactor") caloFactor: RequestBody,
         @Part("categoryId") catId: RequestBody,
         @Part("id") id: RequestBody
     ): ResponseMessage
@@ -66,7 +76,13 @@ interface MyFitnessService {
         @Query("categoryId") catId: String
     ): ResponseMessage
 
-/////////// nutrition
+    @GET("statEnsure")
+    suspend fun getStatEnsureList(
+        @Query("excId") id: String,
+        @Query("catId") catId: String
+    ): Map<String, Any> // moi string la json map chua cac statName va value
+
+/////////// body stat
 
     @GET("bodyStats")
     suspend fun fetchBodyStat(): List<BodyStat>

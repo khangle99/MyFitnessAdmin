@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/layout/fragment_add_stat_dialog.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/item_body_stat.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/view_achievement_ticket.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/view_tutorial_ticket.xml" value="0.34010416666666665" />
       </map>
     </option>
