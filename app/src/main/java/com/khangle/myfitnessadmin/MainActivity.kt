@@ -8,6 +8,7 @@ import com.khangle.myfitnessadmin.excercise.category.ExcerciseCategoryActivity
 import com.khangle.myfitnessadmin.extension.slideActivity
 import com.khangle.myfitnessadmin.nutrition.category.BodyStatActiviy
 import com.khangle.myfitnessadmin.report.ReportMainActivity
+import com.khangle.myfitnessadmin.suggestpack.planlist.SuggestActivity
 
 class MainActivity : BaseActivity() {
 
@@ -19,7 +20,9 @@ class MainActivity : BaseActivity() {
             slideActivity(Intent(this, ExcerciseCategoryActivity::class.java))
         }
 
-
+        findViewById<CardView>(R.id.suggestPack).setOnClickListener {
+            slideActivity(Intent(this, SuggestActivity::class.java))
+        }
 
         findViewById<CardView>(R.id.bodyStatBtn).setOnClickListener {
             slideActivity(Intent(this, BodyStatActiviy::class.java))

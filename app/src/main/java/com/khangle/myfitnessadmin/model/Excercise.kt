@@ -18,5 +18,6 @@ class Excercise(
     val picSteps: List<String>,
     var achieveEnsure: String, // json
     val addedCount: Int,
-    var tutorialWithPic: Map<String, String>
+    var tutorialWithPic: Map<String, String>,
+    var categoryId: String
 ): Parcelable

@@ -170,5 +170,15 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/addToPackage"
+            android:drawableLeft="@drawable/ic_baseline_star_24"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/yellow"
+            android:layout_margin="10dp"
+            android:text="Add to Package"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 </ScrollView>

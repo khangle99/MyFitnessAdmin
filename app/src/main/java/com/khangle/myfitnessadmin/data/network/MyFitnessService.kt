@@ -19,6 +19,9 @@ interface MyFitnessService {
     @GET("excercises")
     suspend fun fetchExcerciseList(@Query("categoryId") catId: String): List<Excercise>
 
+    @GET("excercisesDetail")
+    suspend fun fetchExcercise(@Query("categoryId") catId: String, @Query("id") id: String): Excercise
+
     @Multipart
     @POST("newExcerciseCategory")
     suspend fun postExcerciseCategory(
@@ -104,5 +107,46 @@ interface MyFitnessService {
 
     @DELETE("deleteBodyStat")
     suspend fun deleteBodyStat(@Query("id") id: String): ResponseMessage
+
+
+    /////////// suggest plan
+    @GET("allSuggestPlan")
+    suspend fun fetchSuggestPlans(): List<Plan>
+
+    @FormUrlEncoded
+    @POST("newSuggestPlan")
+    suspend fun postPlan(
+        @Field("description") name: String
+    ): ResponseMessage
+
+    @FormUrlEncoded
+    @PUT("updateSuggestPlan")
+    suspend fun updatePlan(
+        @Field("id") id: String,
+        @Field("description") name: String
+    ): ResponseMessage
+
+    @DELETE("deleteSuggestPlan")
+    suspend fun deletePlan(@Query("id") id: String): ResponseMessage
+
+    /////////// suggest plan detail (PlanDay)
+    @GET("suggestPlanDetail")
+    suspend fun fetchDayList(@Query("sugId") sugId: String): List<PlanDay>
+
+    @FormUrlEncoded
+    @PUT("updateSuggestPlanDetail")
+    suspend fun updatePlanDay(
+        @Field("sugId") id: String,
+        @Field("categoryId") categoryId: String,
+        @Field("excId") excId: String,
+        @Field("day") day: String,
+        @Field("oldDay") oldDay: String
+    ): ResponseMessage
+
+    @DELETE("deleteSuggestPlanDetail")
+    suspend fun deletePlanDay(@Query("sugId") id: String,
+                              @Query("day") day: String
+    ): ResponseMessage
+
 
 }

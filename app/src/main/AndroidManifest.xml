@@ -15,6 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFitnessAdmin">
+        <activity
+            android:name=".suggestpack.daydetail.DayDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".suggestpack.plandetail.PlanDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".suggestpack.planlist.SuggestActivity"
+            android:theme="@style/Theme.MyFitnessAdmin.NoAction"
+            android:exported="true" />
         <activity android:name=".report.mostusedexcercise.MostUseExcerciseActivity" />
         <activity android:name=".report.ReportMainActivity" />
         <activity

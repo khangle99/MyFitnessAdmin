@@ -27,6 +27,10 @@ class MyFitnessRepository @Inject constructor(
         return myFitnessService.fetchAllExcercise()
     }
 
+    suspend fun getExcercise(catId: String, id: String): Excercise {
+        return myFitnessService.fetchExcercise(catId, id)
+    }
+
     suspend fun getExcerciseCategory(): List<ExcerciseCategory> {
         return myFitnessService.fetchExcerciseCategory()
     }
@@ -180,6 +184,38 @@ class MyFitnessRepository @Inject constructor(
 
     suspend fun deleteBodyStat(id: String): ResponseMessage {
         return myFitnessService.deleteBodyStat(id)
+    }
+
+
+////////////////// Suggest Plan
+    suspend fun getSuggestPlans(): List<Plan> {
+        return myFitnessService.fetchSuggestPlans()
+    }
+
+    suspend fun postPlan(description: String): ResponseMessage {
+        return myFitnessService.postPlan(description)
+    }
+
+    suspend fun updatePlan(id: String, description: String): ResponseMessage {
+        return myFitnessService.updatePlan(id,description)
+    }
+
+    suspend fun deletePlan(id: String): ResponseMessage {
+        return myFitnessService.deletePlan(id)
+    }
+
+    suspend fun loadDayList(sugId: String): List<PlanDay> {
+        return myFitnessService.fetchDayList(sugId)
+    }
+
+////////////////// Suggest Plan Detail (PlanDay)
+
+    suspend fun updatePlanDay(sugId: String, categoryId: String, excId: String, day: String, oldDay: String): ResponseMessage {
+        return myFitnessService.updatePlanDay(sugId, categoryId, excId, day, oldDay)
+    }
+
+    suspend fun deletePlanDay(sugId: String, day: String): ResponseMessage {
+        return myFitnessService.deletePlanDay(sugId, day)
     }
 
 }

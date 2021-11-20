@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import coil.load
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.chip.Chip
@@ -26,7 +27,9 @@ import com.khangle.myfitnessadmin.model.BodyStat
 import com.khangle.myfitnessadmin.model.Excercise
 import dagger.hilt.android.AndroidEntryPoint
 import com.google.gson.JsonElement
-
+import com.khangle.myfitnessadmin.extension.slideActivity
+import com.khangle.myfitnessadmin.extension.slideActivityForResult
+import com.khangle.myfitnessadmin.suggestpack.daydetail.DayDetailActivity
 
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -42,6 +45,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     lateinit var noGapEditText: EditText
     lateinit var noSecEditText: EditText
     lateinit var caloFactorEditText: EditText
+    lateinit var addToPackBtn: Button
 
     lateinit var catId: String
 
@@ -170,6 +174,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     private fun setupUI() {
         nameEditText = findViewById(R.id.excName)
+        addToPackBtn = findViewById(R.id.addToPackage)
         difficultySpinner = findViewById(R.id.excDifficulty)
         difficultySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -208,6 +213,14 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 //        imageListAdapter = ImageRecyclerviewAdapter()
 //        imageRecyclerView.adapter = imageListAdapter
 //        imageRecyclerView.layoutManager = LinearLayoutManager(baseContext,RecyclerView.HORIZONTAL, false)
+        if (intent.extras?.getBoolean("isViewOnly",false) == true) {
+            addToPackBtn.visibility = View.INVISIBLE
+        }
+        addToPackBtn.setOnClickListener {
+            val intent = Intent(this, DayDetailActivity::class.java)
+            intent.putExtras(bundleOf("state" to UseState.ADD.raw, "categoryId" to excercise?.categoryId, "excId" to excercise?.id, "excName" to excercise?.name))
+            slideActivityForResult(intent,97) // code 97 add to package
+        }
     }
 
 
@@ -225,6 +238,16 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 //        if (requestCode == RESULT_BACK_RQ && resultCode == RELOAD_RS) {
 //            viewmodel.loadList(currentCategoryId)
 //        }
+
+        if (requestCode == 97) {
+            // hien ui bao ket qua add package
+           if (resultCode == RELOAD_RS) {
+               Toast.makeText(this,"Success", Toast.LENGTH_SHORT).show()
+           } else {
+               Toast.makeText(this,"Cancel Add to Package", Toast.LENGTH_SHORT).show()
+           }
+
+        }
     }
 
 
@@ -418,7 +441,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         }
 
         val excercise = Excercise("",name,diff,equip,noTurn,noSec,noGap,caloFactor, tutorialArray, listOf(),achievementJSON,0,
-            mapOf())
+            mapOf(),catId)
 
         viewmodel.createExcercise(
             catId,

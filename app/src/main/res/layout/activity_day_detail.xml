@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".suggestpack.daydetail.DayDetailActivity">
+    <TextView
+        android:layout_margin="18dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Excercise Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:padding="10dp"
+        android:background="@drawable/rounded_bkg"
+        android:hint="Excercise Name"
+        android:layout_margin="12dp"
+        android:id="@+id/excName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/sessionTitle"
+        android:layout_margin="18dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Package"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/packageSpinner"
+        android:padding="10dp"
+        android:layout_margin="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"/>
+    <TextView
+        android:layout_margin="18dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Spinner
+        android:id="@+id/dayinWeekSpinner"
+        android:padding="10dp"
+        android:layout_margin="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.chip.Chip
+        android:text="View Detail"
+        android:backgroundTint="@color/orange"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:id="@+id/viewExcDetailBtn"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

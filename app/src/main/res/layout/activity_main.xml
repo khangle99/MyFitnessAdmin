@@ -71,6 +71,30 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
+            android:id="@+id/suggestPack"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="10dp" >
+            <LinearLayout
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@drawable/pack_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+                <TextView
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:text="Suggest Package"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
             android:id="@+id/reportBtn"
             android:layout_width="250dp"
             android:layout_height="250dp"
