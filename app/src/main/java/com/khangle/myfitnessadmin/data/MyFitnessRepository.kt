@@ -174,12 +174,12 @@ class MyFitnessRepository @Inject constructor(
         return myFitnessService.fetchBodyStat()
     }
 
-    suspend fun postBodyStat(name: String, dataType: String): ResponseMessage {
-        return myFitnessService.postBodyStat(name, dataType)
+    suspend fun postBodyStat(name: String, dataType: String, unit: String): ResponseMessage {
+        return myFitnessService.postBodyStat(name, dataType, unit)
     }
 
-    suspend fun updateBodyStat(id: String, name: String, dataType: String): ResponseMessage {
-        return myFitnessService.updateBodyStat(id,name, dataType)
+    suspend fun updateBodyStat(id: String, name: String, dataType: String, unit: String): ResponseMessage {
+        return myFitnessService.updateBodyStat(id,name, dataType, unit)
     }
 
     suspend fun deleteBodyStat(id: String): ResponseMessage {

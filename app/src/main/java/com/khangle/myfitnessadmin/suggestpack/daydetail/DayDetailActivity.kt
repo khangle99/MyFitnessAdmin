@@ -153,7 +153,6 @@ class DayDetailActivity : ComposableBaseActivity() {
         if (!validateInput()) return
         val categoryId = intent.extras?.getString("categoryId")!!
         val excId = intent.extras?.getString("excId")!!
-    val test = planDay.day
         viewModel.updatePlanDay(selectedPlanId!!,planDay.categoryId,excId, selectedDay!!,planDay.day) { message ->
             if (message.id != null) {
                 Toast.makeText(

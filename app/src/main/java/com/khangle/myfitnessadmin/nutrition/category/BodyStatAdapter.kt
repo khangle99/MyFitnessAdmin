@@ -41,7 +41,7 @@ class BodyStatAdapter(val onItemclick: (item: BodyStat) -> Unit):
         fun bind(bodyStat: BodyStat) {
             item = bodyStat
             nameTextView.text = bodyStat.name
-            dataTypeTextView.text = bodyStat.dataType
+            dataTypeTextView.text = bodyStat.unit
         }
     }
 }

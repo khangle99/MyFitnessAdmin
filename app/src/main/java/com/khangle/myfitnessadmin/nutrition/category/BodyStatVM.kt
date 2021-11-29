@@ -33,9 +33,9 @@ class BodyStatVM @Inject constructor(private val repository: MyFitnessRepository
         }
     }
 
-    fun postBodyStat(name: String, dataType: String, handle: (ResponseMessage) -> Unit) {
+    fun postBodyStat(name: String, dataType: String, unit: String, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = repository.postBodyStat(name, dataType)
+            val res = repository.postBodyStat(name, dataType, unit)
             withContext(Dispatchers.Main) {
                 handle(res)
             }

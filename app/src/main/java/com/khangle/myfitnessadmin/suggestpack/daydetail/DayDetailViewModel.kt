@@ -26,20 +26,6 @@ class DayDetailViewModel @Inject constructor(private val repository: MyFitnessRe
         }
     }
 
-    private var _dayList = MutableLiveData<List<PlanDay>>()
-    val dayList: LiveData<List<PlanDay>> = _dayList
-    fun getDayList(sugId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val list = repository.loadDayList(sugId).map {
-                async {
-                    it.exc = repository.getExcercise(it.categoryId, it.excId)
-                    it
-                }
-            }.awaitAll()
-            _dayList.postValue(list)
-        }
-    }
-
     fun updatePlanDay(sugId: String, categoryId: String, excId: String, day: String, oldDay: String, handle: (ResponseMessage) -> Unit){
         viewModelScope.launch(Dispatchers.IO) {
             handleResponse(handle) {

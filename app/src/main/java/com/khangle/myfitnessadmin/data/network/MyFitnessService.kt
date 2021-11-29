@@ -94,7 +94,8 @@ interface MyFitnessService {
     @POST("newBodyStat")
     suspend fun postBodyStat(
         @Field("name") name: String,
-        @Field("dataType") dataType: String
+        @Field("dataType") dataType: String,
+        @Field("unit") unit: String
     ): ResponseMessage
 
     @FormUrlEncoded
@@ -102,7 +103,8 @@ interface MyFitnessService {
     suspend fun updateBodyStat(
         @Field("id") id: String,
         @Field("name") name: String,
-        @Field("dataType") dataType: String
+        @Field("dataType") dataType: String,
+        @Field("unit") unit: String
     ): ResponseMessage
 
     @DELETE("deleteBodyStat")

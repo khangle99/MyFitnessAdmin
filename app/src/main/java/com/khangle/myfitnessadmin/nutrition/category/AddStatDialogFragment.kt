@@ -17,7 +17,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddStatDialogFragment(private val bodyStatVM: BodyStatVM) : DialogFragment() {
 
     lateinit var nameEditText: EditText
+    lateinit var unitEditText: EditText
     lateinit var dataTypeSpinner: Spinner
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class AddStatDialogFragment(private val bodyStatVM: BodyStatVM) : DialogFragment
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_stat_dialog, container, false)
         nameEditText = view.findViewById(R.id.nameEditText)
+        unitEditText = view.findViewById(R.id.unitEditText)
         dataTypeSpinner = view.findViewById(R.id.dataTypeSpinner)
         setupSpinner()
         view.findViewById<Button>(R.id.cancelBtn).setOnClickListener {
@@ -37,17 +40,26 @@ class AddStatDialogFragment(private val bodyStatVM: BodyStatVM) : DialogFragment
         }
 
         view.findViewById<Button>(R.id.saveBtn).setOnClickListener {
-            if (!nameEditText.text.toString().equals("")) {
-                postBodyStat()
-                dismiss()
-            } else {
+            var isError = false;
+            if (nameEditText.text.toString().equals("")) {
+                isError = true
                 nameEditText.setError("Loi")
             }
 
+            if (unitEditText.text.toString().equals("")) {
+                isError = true
+                unitEditText.setError("Loi")
+            }
+
+            if (!isError) {
+                postBodyStat()
+                dismiss()
+            }
         }
 
         return view
     }
+
 
     private fun setupSpinner() {
         val dataList = arrayOf("Float", "Integer")
@@ -58,7 +70,7 @@ class AddStatDialogFragment(private val bodyStatVM: BodyStatVM) : DialogFragment
     private fun postBodyStat() {
         val activity = activity as BodyStatActiviy
         activity.progressBar.visibility = View.VISIBLE
-        bodyStatVM.postBodyStat(nameEditText.text.toString(),dataTypeSpinner.selectedItem.toString()) {
+        bodyStatVM.postBodyStat(nameEditText.text.toString(),dataTypeSpinner.selectedItem.toString(), unitEditText.text.toString()) {
             bodyStatVM.getBodyStatList()
 
         }
