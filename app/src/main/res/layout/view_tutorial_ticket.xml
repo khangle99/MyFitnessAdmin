@@ -59,6 +59,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/deleteStepbtn"
         android:text="Remove"
+        android:visibility="invisible"
         android:textColor="@color/white"
         android:backgroundTint="@color/red"
         android:layout_width="wrap_content"

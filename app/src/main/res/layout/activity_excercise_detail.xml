@@ -118,37 +118,59 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"/>
       </LinearLayout>
-<!--        <TextView-->
-<!--            android:layout_margin="18dp"-->
-<!--            android:textSize="24sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:text="Tutorial"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"/>-->
-<!--        <EditText-->
-<!--            android:hint="Tutorial"-->
-<!--            android:layout_margin="12dp"-->
-<!--            android:minLines="8"-->
-<!--            android:scrollbars="vertical"-->
-<!--            android:gravity="start"-->
-<!--            android:padding="10dp"-->
-<!--            android:background="@drawable/rounded_bkg"-->
-<!--            android:inputType="textMultiLine"-->
-<!--            android:id="@+id/excTutorial"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"/>-->
-<!--        <Button-->
-<!--            android:drawableStart="@drawable/ic_baseline_image_24"-->
-<!--            android:layout_gravity="center"-->
-<!--            app:icon="@drawable/ic_baseline_image_24"-->
-<!--            android:text="Pick Image"-->
-<!--            android:id="@+id/pickImage"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"/>-->
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/imageList"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="400dp"/>-->
+
+ <TextView
+            android:layout_margin="18dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Nutri ratio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <EditText
+              android:hint="Dam"
+              android:layout_margin="8dp"
+              android:padding="10dp"
+              android:layout_weight="1"
+              android:inputType="number"
+              android:background="@drawable/rounded_bkg"
+              android:id="@+id/damET"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+          <EditText
+              android:hint="Tinh bot"
+              android:layout_margin="8dp"
+              android:padding="10dp"
+              android:inputType="number"
+              android:layout_weight="1"
+              android:background="@drawable/rounded_bkg"
+              android:id="@+id/tinhBotET"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+          <EditText
+              android:hint="Beo"
+              android:layout_margin="8dp"
+              android:padding="10dp"
+              android:layout_weight="1"
+              android:inputType="number"
+              android:background="@drawable/rounded_bkg"
+              android:id="@+id/beoET"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+          <EditText
+              android:hint="Khoang"
+              android:layout_margin="8dp"
+              android:padding="10dp"
+              android:layout_weight="1"
+              android:inputType="number"
+              android:background="@drawable/rounded_bkg"
+              android:id="@+id/vitET"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+      </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

@@ -23,6 +23,7 @@
         android:id="@+id/deleteAchieve"
         android:layout_width="wrap_content"
         android:backgroundTint="@color/red"
+        android:visibility="invisible"
         android:text="Remove"
         android:textColor="@color/white"
         android:layout_height="50dp"

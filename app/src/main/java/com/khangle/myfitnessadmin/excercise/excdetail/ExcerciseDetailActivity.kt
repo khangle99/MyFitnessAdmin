@@ -47,6 +47,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     lateinit var caloFactorEditText: EditText
     lateinit var addToPackBtn: Button
 
+    lateinit var damEditText: EditText
+    lateinit var beoEditText: EditText
+    lateinit var tinhbotEditText: EditText
+    lateinit var khoangEditText: EditText
+
     lateinit var catId: String
 
     lateinit var progressBar: ProgressBar
@@ -66,24 +71,6 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     private lateinit var bodyStatList: List<BodyStat>
 
     private var isPickImage = false
-
-    private fun indexOf(editText: EditText): Int {
-        for ((index, edit) in stepEditTextList.withIndex()) {
-            if (edit === editText) {
-                return index
-            }
-        }
-        return -1
-    }
-
-    private fun indexOf(imageView: ImageView): Int {
-        for ((index, imgView) in stepPicImageViewList.withIndex()) {
-            if (imgView === imageView) {
-                return index
-            }
-        }
-        return -1
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -194,6 +181,10 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         noTurnEditText = findViewById(R.id.excNoTurn)
         noGapEditText = findViewById(R.id.excNoGap)
         noSecEditText = findViewById(R.id.excNoSec)
+        beoEditText = findViewById(R.id.beoET)
+        khoangEditText = findViewById(R.id.vitET)
+        damEditText = findViewById(R.id.damET)
+        tinhbotEditText = findViewById(R.id.tinhBotET)
         caloFactorEditText = findViewById(R.id.caloFactor)
        // tutorialEditText = findViewById(R.id.excTutorial)
 //        imageRecyclerView = findViewById(R.id.imageList)
@@ -285,6 +276,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         noGapEditText.setText(excercise.noGap.toString())
         noSecEditText.setText(excercise.noSec.toString())
         caloFactorEditText.setText(excercise.caloFactor.toString())
+        val nutriFactorStr = excercise.nutriFactor
+        beoEditText.setText(nutriFactorStr[1].toString())
+        damEditText.setText(nutriFactorStr[0].toString())
+        tinhbotEditText.setText(nutriFactorStr[2].toString())
+        khoangEditText.setText(nutriFactorStr[3].toString())
 
         // load step tu cac array tutorial for de new view voi moi picurl
         excercise.tutorialWithPic.forEach { tutoText, urlString ->
@@ -344,6 +340,23 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         }
         if (noTurnEditText.getText().toString().trim { it <= ' ' }.length == 0) {
             noTurnEditText.setError("Không được để trống noGap")
+            return false
+        }
+
+        if (beoEditText.getText().toString().trim { it <= ' ' }.length == 0) {
+            beoEditText.setError("Không được để trống noGap")
+            return false
+        }
+        if (damEditText.getText().toString().trim { it <= ' ' }.length == 0) {
+            damEditText.setError("Không được để trống noGap")
+            return false
+        }
+        if (tinhbotEditText.getText().toString().trim { it <= ' ' }.length == 0) {
+            tinhbotEditText.setError("Không được để trống noGap")
+            return false
+        }
+        if (khoangEditText.getText().toString().trim { it <= ' ' }.length == 0) {
+            khoangEditText.setError("Không được để trống noGap")
             return false
         }
 
@@ -421,6 +434,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val noGap = noGapEditText.text.toString().toInt()
         val noSec = noSecEditText.text.toString().toInt()
         val caloFactor = caloFactorEditText.text.toString().toFloat()
+        val dam = damEditText.text.toString().toFloat()
+        val beo = beoEditText.text.toString().toFloat()
+        val khoang = khoangEditText.text.toString().toFloat()
+        val tinhbot = tinhbotEditText.text.toString().toFloat()
+        val nutriStr = "$dam$beo$tinhbot$khoang"
         // get step info
         val tutorialStringList = mutableListOf<String>()
         stepEditTextList.forEach {
@@ -441,7 +459,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         }
 
         val excercise = Excercise("",name,diff,equip,noTurn,noSec,noGap,caloFactor, tutorialArray, listOf(),achievementJSON,0,
-            mapOf(),catId)
+            mapOf(),catId, nutriStr)
 
         viewmodel.createExcercise(
             catId,
@@ -478,6 +496,12 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         excercise!!.noGap = noGapEditText.text.toString().toInt()
         excercise!!.noSec = noSecEditText.text.toString().toInt()
         excercise!!.caloFactor = caloFactorEditText.text.toString().toFloat()
+        val dam = damEditText.text.toString().toFloat()
+        val beo = beoEditText.text.toString().toFloat()
+        val khoang = khoangEditText.text.toString().toFloat()
+        val tinhbot = tinhbotEditText.text.toString().toFloat()
+        val nutriStr = "$dam$beo$tinhbot$khoang"
+        excercise!!.nutriFactor = nutriStr
         var uriStringList: List<String>? = null
 
         if (isPickImage) {
@@ -553,6 +577,12 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 noSecEditText.setReadOnly(false)
                 noGapEditText.setReadOnly(false)
                 noTurnEditText.setReadOnly(false)
+                beoEditText.setReadOnly(false)
+                damEditText.setReadOnly(false)
+                tinhbotEditText.setReadOnly(false)
+                khoangEditText.setReadOnly(false)
+                invalidateAchievement(true)
+                invalidateStepInfo(true)
 //                tutorialEditText.setReadOnly(false)
 //                pickImage.visibility = View.VISIBLE
             }
@@ -564,9 +594,27 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 noSecEditText.setReadOnly(true)
                 noGapEditText.setReadOnly(true)
                 noTurnEditText.setReadOnly(true)
+                beoEditText.setReadOnly(true)
+                damEditText.setReadOnly(true)
+                tinhbotEditText.setReadOnly(true)
+                khoangEditText.setReadOnly(true)
+                invalidateAchievement(false)
+                invalidateStepInfo(false)
 //                tutorialEditText.setReadOnly(true)
 //                pickImage.visibility = View.INVISIBLE
             }
+        }
+    }
+
+    private fun invalidateAchievement(isEnable: Boolean) {
+        achievementTicketList.forEach {
+            it.findViewById<Chip>(R.id.deleteAchieve).visibility = if (isEnable) View.VISIBLE else View.INVISIBLE
+        }
+    }
+
+    private fun invalidateStepInfo(isEnable: Boolean) {
+        stepTicketList.forEach {
+            it.findViewById<Chip>(R.id.deleteStepbtn).visibility = if (isEnable) View.VISIBLE else View.INVISIBLE
         }
     }
 }

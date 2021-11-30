@@ -31,7 +31,7 @@ class DayDetailActivity : ComposableBaseActivity() {
     private var selectedPlanId: String? = null
     private var selectedDay: String? = null
     private lateinit var planDay: PlanDay
-    private val dayList = listOf("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+    private val dayList = listOf("Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
     val viewModel: DayDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
