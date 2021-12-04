@@ -52,6 +52,7 @@ interface MyFitnessService {
         @Part("noGap") noGap: RequestBody,
         @Part("achievementMap") achievementString: RequestBody,
         @Part("caloFactor") caloFactor: RequestBody,
+        @Part("nutriFactor") nutriFactor: RequestBody,
         @Part("tutorial[]") tutorial: List<String>,
         @Part("catId") catId: RequestBody
     ): ResponseMessage
@@ -69,6 +70,7 @@ interface MyFitnessService {
         @Part("achievementMap") achievementString: RequestBody,
         @Part("tutorial[]") tutorial: List<String>,
         @Part("caloFactor") caloFactor: RequestBody,
+        @Part("nutriFactor") nutriFactor: RequestBody,
         @Part("categoryId") catId: RequestBody,
         @Part("id") id: RequestBody
     ): ResponseMessage

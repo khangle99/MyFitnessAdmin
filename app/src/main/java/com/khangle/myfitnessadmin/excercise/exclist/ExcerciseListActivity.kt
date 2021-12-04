@@ -56,6 +56,7 @@ class ExcerciseListActivity : ComposableBaseActivity() {
             if (it.isEmpty()) {
                 Toast.makeText(baseContext, "Empty List", Toast.LENGTH_SHORT).show()
             }
+            adapter.submitList(null)
             adapter.submitList(it)
         }
 

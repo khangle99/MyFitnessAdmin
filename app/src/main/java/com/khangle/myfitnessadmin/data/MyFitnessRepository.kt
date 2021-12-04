@@ -91,15 +91,9 @@ class MyFitnessRepository @Inject constructor(
         val noSec = excercise.noSec.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val noGap = excercise.noGap.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val caloFactor = excercise.caloFactor.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val nutriFactor = excercise.nutriFactor.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val catIdRequestBody = catId.toRequestBody("text/plain".toMediaTypeOrNull())
         val achievement = excercise.achieveEnsure.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-
-        // huong 2
-        val list = mutableListOf<MultipartBody.Part>()
-        excercise.tutorial.forEach {
-            val part = MultipartBody.Part.createFormData("tutorial", it)
-            list.add(part)
-        }
 
         return myFitnessService.postExcercise(
             photoList,
@@ -111,6 +105,7 @@ class MyFitnessRepository @Inject constructor(
             noGap,
             achievement,
             caloFactor,
+            nutriFactor,
             excercise.tutorial,
             catIdRequestBody
         )
@@ -134,18 +129,13 @@ class MyFitnessRepository @Inject constructor(
         val noSec = excercise.noSec.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val noGap = excercise.noGap.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val caloFactor = excercise.caloFactor.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val nutriFactor = excercise.nutriFactor.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val achievement = excercise.achieveEnsure.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val excName = excercise.name.toRequestBody("text/plain".toMediaTypeOrNull())
         val excDiff = excercise.difficulty.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val excEquip = excercise.equipment.toRequestBody("text/plain".toMediaTypeOrNull())
         val catIdRequestBody = catId.toRequestBody("text/plain".toMediaTypeOrNull())
         val idRequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
-        val list = mutableListOf<MultipartBody.Part>()
-
-        excercise.tutorial.forEach {
-            val part = MultipartBody.Part.createFormData("tutorial", it)
-            list.add(part)
-        }
 
         return myFitnessService.updateExcercise(
             photoList,
@@ -158,6 +148,7 @@ class MyFitnessRepository @Inject constructor(
             achievement,
             excercise.tutorial,
             caloFactor,
+            nutriFactor,
             catIdRequestBody,
             idRequestBody
         )

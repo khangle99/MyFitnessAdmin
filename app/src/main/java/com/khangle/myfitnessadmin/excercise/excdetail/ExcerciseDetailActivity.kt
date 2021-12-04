@@ -67,7 +67,6 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     private val stepPicImageViewList = mutableListOf<ImageView>() // uri dc luu thong qua tag
     //lay index ra bang cach click vao ui xong kiem tra for each 2 mang tren
     private var achievementTicketList = mutableListOf<View>()
-    private var achievementCount = 0
     private lateinit var bodyStatList: List<BodyStat>
 
     private var isPickImage = false
@@ -79,11 +78,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         container = findViewById(R.id.detailContainer)
         addAchievementBtn = findViewById(R.id.addAchievement)
         addAchievementBtn.setOnClickListener { // tam thoi de sau khi co ui quan ly body stat roi moi tiep
-            onAddAchievement()
+            onAddAchievement(true)
         }
         addMoreStepBtn = findViewById(R.id.addMoreStep)
         addMoreStepBtn.setOnClickListener {
-            onAddMoreStepClick()
+            onAddMoreStepClick(true)
         }
 
         val excerciserReceive = intent.extras?.getParcelable<Excercise>("excercise")
@@ -103,8 +102,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     }
 
-    private fun onAddAchievement(): View {
-        achievementCount++
+    private fun onAddAchievement(isDeletable: Boolean): View {
         val achieveTicket = layoutInflater.inflate(R.layout.view_achievement_ticket, null)
         if (viewmodel.bodyStatList.value != null) {
             val array = viewmodel.bodyStatList.value!!.map {
@@ -113,9 +111,9 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             val adapter = ArrayAdapter(baseContext,android.R.layout.simple_spinner_item, array)
             achieveTicket.findViewById<Spinner>(R.id.bodyStatSpinner).adapter = adapter
         }
-
-
-        achieveTicket.findViewById<Chip>(R.id.deleteAchieve).setOnCloseIconClickListener {
+        val deleteBtn = achieveTicket.findViewById<Chip>(R.id.deleteAchieve)
+        deleteBtn.visibility = if (isDeletable) View.VISIBLE else View.INVISIBLE
+        deleteBtn.setOnClickListener {
             container.removeView(achieveTicket)
             achievementTicketList.remove(achieveTicket)
         }
@@ -124,7 +122,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         return achieveTicket
     }
 
-    private fun onAddMoreStepClick(): View {
+    private fun onAddMoreStepClick(isDeletable: Boolean): View {
         val stepTicket = layoutInflater.inflate(R.layout.view_tutorial_ticket, null)
         stepTicketList.add(stepTicket)
         val editText = stepTicket.findViewById<EditText>(R.id.stepTutorial)
@@ -145,6 +143,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         imageView.tag = ""
 
         val deleteBtn = stepTicket.findViewById<Chip>(R.id.deleteStepbtn)
+        deleteBtn.visibility = if (isDeletable) View.VISIBLE else View.INVISIBLE
         deleteBtn.setOnClickListener {
             // get index
             val index = stepTicketList.indexOf(stepTicket)
@@ -152,9 +151,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             stepEditTextList.removeAt(index)
             stepTicketList.removeAt(index)
             container.removeView(stepTicket)
+
         }
 
-        container.addView(stepTicket,container.childCount - achievementCount - 1)
+
+        container.addView(stepTicket,container.childCount - achievementTicketList.size - 1)
         return stepTicket
     }
 
@@ -242,28 +243,6 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     }
 
 
-    private fun getUriListFromData(data: Intent?): List<Uri> {
-        val list = mutableListOf<Uri>()
-        if(data!!.clipData != null) {
-            val count = data.clipData!!.itemCount
-            for (index in 0..count - 1) {
-                data.clipData?.getItemAt(index)?.uri?.let { list.add(it) }
-            }
-        } else {
-            val uri = data.data!!
-            list.add(uri)
-        }
-        return list
-    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item.itemId == R.id.save) {
-//            progressBar.visibility = View.VISIBLE
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
-
-
     private fun loadExcercise(excercise: Excercise) {
         nameEditText.setText(excercise.name)
 
@@ -277,14 +256,19 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         noSecEditText.setText(excercise.noSec.toString())
         caloFactorEditText.setText(excercise.caloFactor.toString())
         val nutriFactorStr = excercise.nutriFactor
-        beoEditText.setText(nutriFactorStr[1].toString())
-        damEditText.setText(nutriFactorStr[0].toString())
-        tinhbotEditText.setText(nutriFactorStr[2].toString())
-        khoangEditText.setText(nutriFactorStr[3].toString())
+        val split: Array<String> = nutriFactorStr.split("-").toTypedArray()
+        val dam = split[0].toInt()
+        val beo = split[1].toInt()
+        val tinhbot = split[2].toInt()
+        val khoang = split[3].toInt()
+        beoEditText.setText(beo.toString())
+        damEditText.setText(dam.toString())
+        tinhbotEditText.setText(tinhbot.toString())
+        khoangEditText.setText(khoang.toString())
 
         // load step tu cac array tutorial for de new view voi moi picurl
         excercise.tutorialWithPic.forEach { tutoText, urlString ->
-            val view = onAddMoreStepClick()
+            val view = onAddMoreStepClick(false)
             view.findViewById<EditText>(R.id.stepTutorial).setText(tutoText)
             view.findViewById<ImageView>(R.id.stepPic)?.let {
                 it.load(urlString) {
@@ -298,7 +282,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val spinnerValues = viewmodel.bodyStatList.value
         val fromJson = Gson().fromJson(excercise.achieveEnsure, JsonObject::class.java)
         for ((key, value) in fromJson.entrySet()) {
-           val view = onAddAchievement()
+           val view = onAddAchievement(false)
             view.findViewById<EditText>(R.id.promiseValue).setText(value.asString)
             val indexOf = spinnerValues?.indexOfFirst {
                 it.name == key
@@ -434,11 +418,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val noGap = noGapEditText.text.toString().toInt()
         val noSec = noSecEditText.text.toString().toInt()
         val caloFactor = caloFactorEditText.text.toString().toFloat()
-        val dam = damEditText.text.toString().toFloat()
-        val beo = beoEditText.text.toString().toFloat()
-        val khoang = khoangEditText.text.toString().toFloat()
-        val tinhbot = tinhbotEditText.text.toString().toFloat()
-        val nutriStr = "$dam$beo$tinhbot$khoang"
+        val dam = damEditText.text.toString().toInt()
+        val beo = beoEditText.text.toString().toInt()
+        val khoang = khoangEditText.text.toString().toInt()
+        val tinhbot = tinhbotEditText.text.toString().toInt()
+        val nutriStr = "$dam-$beo-$tinhbot-$khoang"
         // get step info
         val tutorialStringList = mutableListOf<String>()
         stepEditTextList.forEach {
@@ -496,11 +480,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         excercise!!.noGap = noGapEditText.text.toString().toInt()
         excercise!!.noSec = noSecEditText.text.toString().toInt()
         excercise!!.caloFactor = caloFactorEditText.text.toString().toFloat()
-        val dam = damEditText.text.toString().toFloat()
-        val beo = beoEditText.text.toString().toFloat()
-        val khoang = khoangEditText.text.toString().toFloat()
-        val tinhbot = tinhbotEditText.text.toString().toFloat()
-        val nutriStr = "$dam$beo$tinhbot$khoang"
+        val dam = damEditText.text.toString().toInt()
+        val beo = beoEditText.text.toString().toInt()
+        val khoang = khoangEditText.text.toString().toInt()
+        val tinhbot = tinhbotEditText.text.toString().toInt()
+        val nutriStr = "$dam-$beo-$tinhbot-$khoang"
         excercise!!.nutriFactor = nutriStr
         var uriStringList: List<String>? = null
 
