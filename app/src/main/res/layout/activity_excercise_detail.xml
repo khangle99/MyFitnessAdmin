@@ -56,8 +56,15 @@
                android:id="@+id/caloFactor"
                android:hint="Calo Factor"
                android:layout_weight="1"
+               android:layout_gravity="center"
                android:inputType="number"
                android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+           <TextView
+               android:text="Calories"
+               android:textSize="20sp"
+               android:layout_gravity="center"
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content"/>
        </LinearLayout>
         <TextView
@@ -87,36 +94,71 @@
           android:orientation="horizontal"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
-          <EditText
-              android:hint="NoTurn"
-              android:layout_margin="12dp"
-              android:padding="10dp"
-              android:layout_weight="1"
-              android:inputType="number"
-              android:background="@drawable/rounded_bkg"
-              android:id="@+id/excNoTurn"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
-          <EditText
-              android:hint="NoSec"
-              android:layout_margin="12dp"
-              android:padding="10dp"
-              android:inputType="number"
-              android:layout_weight="1"
-              android:background="@drawable/rounded_bkg"
-              android:id="@+id/excNoSec"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
-          <EditText
-              android:hint="NoGap"
-              android:layout_margin="12dp"
-              android:padding="10dp"
-              android:layout_weight="1"
-              android:inputType="number"
-              android:background="@drawable/rounded_bkg"
-              android:id="@+id/excNoGap"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
+
+          <LinearLayout
+              android:layout_margin="10dp"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="Turn:"
+                  android:textSize="20dp"
+                  android:layout_gravity="center"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <EditText
+                  android:hint="NoTurn"
+                  android:padding="10dp"
+                  android:layout_weight="1"
+                  android:inputType="number"
+                  android:background="@drawable/rounded_bkg"
+                  android:id="@+id/excNoTurn"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
+          <LinearLayout
+              android:orientation="horizontal"
+              android:layout_margin="10dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="Sec:"
+                  android:textSize="20dp"
+                  android:layout_gravity="center"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <EditText
+                  android:hint="NoSec"
+                  android:padding="10dp"
+                  android:inputType="number"
+                  android:layout_weight="1"
+                  android:background="@drawable/rounded_bkg"
+                  android:id="@+id/excNoSec"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
+          <LinearLayout
+              android:orientation="horizontal"
+              android:layout_margin="10dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="Gap:"
+                  android:textSize="20dp"
+                  android:layout_gravity="center"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <EditText
+                  android:hint="NoGap"
+                  android:padding="10dp"
+                  android:layout_weight="1"
+                  android:inputType="number"
+                  android:background="@drawable/rounded_bkg"
+                  android:id="@+id/excNoGap"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
+
       </LinearLayout>
 
  <TextView
@@ -130,46 +172,102 @@
           android:orientation="horizontal"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
-          <EditText
-              android:hint="Dam"
+          <LinearLayout
+              android:orientation="vertical"
               android:layout_margin="8dp"
-              android:padding="10dp"
-              android:layout_weight="1"
-              android:inputType="number"
-              android:background="@drawable/rounded_bkg"
-              android:id="@+id/damET"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
-          <EditText
-              android:hint="Tinh bot"
+              android:layout_gravity="center"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="Dam"
+                  android:textSize="20sp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_gravity="center"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <EditText
+                  android:hint="Dam"
+                  android:padding="10dp"
+                  android:layout_margin="10dp"
+                  android:inputType="number"
+                  android:background="@drawable/rounded_bkg"
+                  android:id="@+id/damET"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
+          <LinearLayout
+              android:orientation="vertical"
               android:layout_margin="8dp"
-              android:padding="10dp"
-              android:inputType="number"
-              android:layout_weight="1"
-              android:background="@drawable/rounded_bkg"
-              android:id="@+id/tinhBotET"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
-          <EditText
-              android:hint="Beo"
+              android:layout_gravity="center"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="Tinh bot"
+                  android:textSize="20sp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_gravity="center"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <EditText
+                  android:hint="Tinh bot"
+                  android:layout_margin="8dp"
+                  android:padding="10dp"
+                  android:inputType="number"
+                  android:layout_weight="1"
+                  android:background="@drawable/rounded_bkg"
+                  android:id="@+id/tinhBotET"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
+       <LinearLayout
+              android:orientation="vertical"
               android:layout_margin="8dp"
-              android:padding="10dp"
-              android:layout_weight="1"
-              android:inputType="number"
-              android:background="@drawable/rounded_bkg"
-              android:id="@+id/beoET"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
-          <EditText
-              android:hint="Khoang"
+           android:layout_gravity="center"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="Beo"
+                  android:textSize="20sp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_gravity="center"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+           <EditText
+               android:hint="Beo"
+               android:layout_margin="8dp"
+               android:padding="10dp"
+               android:layout_weight="1"
+               android:inputType="number"
+               android:background="@drawable/rounded_bkg"
+               android:id="@+id/beoET"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+       </LinearLayout>
+          <LinearLayout
+              android:orientation="vertical"
               android:layout_margin="8dp"
-              android:padding="10dp"
-              android:layout_weight="1"
-              android:inputType="number"
-              android:background="@drawable/rounded_bkg"
-              android:id="@+id/vitET"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"/>
+              android:layout_gravity="center"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <TextView
+                  android:text="Khoang"
+                  android:textSize="20sp"
+                  android:layout_marginBottom="10dp"
+                  android:layout_gravity="center"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              <EditText
+                  android:hint="Khoang"
+                  android:layout_margin="8dp"
+                  android:padding="10dp"
+                  android:layout_weight="1"
+                  android:inputType="number"
+                  android:background="@drawable/rounded_bkg"
+                  android:id="@+id/vitET"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+          </LinearLayout>
+
       </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"

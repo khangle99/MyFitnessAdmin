@@ -30,6 +30,7 @@ import com.google.gson.JsonElement
 import com.khangle.myfitnessadmin.extension.slideActivity
 import com.khangle.myfitnessadmin.extension.slideActivityForResult
 import com.khangle.myfitnessadmin.suggestpack.daydetail.DayDetailActivity
+import org.w3c.dom.Text
 
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -89,6 +90,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         if (excerciserReceive != null) {
             excercise = excerciserReceive
             viewmodel.bodyStatList.observe(this) {
+
                 loadExcercise(excerciserReceive)
             }
 
@@ -109,7 +111,23 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 it.name
             }
             val adapter = ArrayAdapter(baseContext,android.R.layout.simple_spinner_item, array)
-            achieveTicket.findViewById<Spinner>(R.id.bodyStatSpinner).adapter = adapter
+            val unitTV = achieveTicket.findViewById<TextView>(R.id.unitTV)
+            val spinner = achieveTicket.findViewById<Spinner>(R.id.bodyStatSpinner)
+            spinner.adapter = adapter
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected( parent: AdapterView<*>?,
+                                             view: View?,
+                                             position: Int,
+                                             id: Long,) {
+                    unitTV.text = viewmodel.bodyStatList.value!![position].unit
+
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                }
+
+            }
         }
         val deleteBtn = achieveTicket.findViewById<Chip>(R.id.deleteAchieve)
         deleteBtn.visibility = if (isDeletable) View.VISIBLE else View.INVISIBLE
@@ -288,6 +306,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 it.name == key
             }?.let {
                 view.findViewById<Spinner>(R.id.bodyStatSpinner).setSelection(it)
+                viewmodel.bodyStatList.value?.get(it)?.unit ?: ""
             }
         }
 
