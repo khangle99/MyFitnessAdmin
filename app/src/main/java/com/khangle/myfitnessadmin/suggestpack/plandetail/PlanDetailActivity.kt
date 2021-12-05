@@ -72,9 +72,14 @@ class PlanDetailActivity : ComposableBaseActivity() {
         adapter = PlanDayAdapter {
             // mo den man hinh bai tap (tai su dung)
             val intent = Intent(this, DayDetailActivity::class.java)
-            val bundle = bundleOf("planDay" to it, "categoryId" to currentCategoryId, "excId" to it.excId)
-            intent.putExtras(bundle)
-            intent.putExtra("test","data")
+            if (it.exc != null) {
+                val bundle = bundleOf("planDay" to it, "categoryId" to currentCategoryId, "excId" to it.excId)
+                intent.putExtras(bundle)
+            } else {
+                val bundle = bundleOf("isDeleted" to true, "categoryId" to currentCategoryId, "excId" to it.excId)
+                intent.putExtras(bundle)
+            }
+
             slideActivityForResult(intent, RESULT_BACK_RQ)
         }
         excerciseList.adapter = adapter

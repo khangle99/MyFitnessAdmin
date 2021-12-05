@@ -30,8 +30,9 @@ class DayDetailActivity : ComposableBaseActivity() {
     private lateinit var daySpinner: Spinner
     private var selectedPlanId: String? = null
     private var selectedDay: String? = null
-    private lateinit var planDay: PlanDay
+    private  var planDay: PlanDay? = null
     private val dayList = listOf("Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+    private var isDeleted = false
     val viewModel: DayDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,26 +47,28 @@ class DayDetailActivity : ComposableBaseActivity() {
             excNameTextView.text = intent.extras?.getString("excName")
 
         } else {
-            planDay = intent.extras?.getParcelable("planDay")!!
-            loadPlanDay(planDay)
-            // co che quan ly delete chua code
-//            if (intent.extras!!.getBoolean("isDeleted", false)) {
-//                viewDetail.visibility = View.INVISIBLE
-//                val spannableString = SpannableString("This Excercise has been deleted by admin! Please manually remove this reference")
-//                spannableString.setSpan(
-//                    ForegroundColorSpan(Color.RED),
-//                    0, // start
-//                    spannableString.length , // end
-//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//                )
-//                excNameTV.text = spannableString
-//            }
+            isDeleted = intent.extras!!.getBoolean("isDeleted", false)
+            if (isDeleted) {
+                viewDetailBtn.visibility = View.INVISIBLE
+                val spannableString = SpannableString("This Excercise has been deleted by admin! Please manually remove this reference")
+                spannableString.setSpan(
+                    ForegroundColorSpan(Color.RED),
+                    0, // start
+                    spannableString.length , // end
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                excNameTextView.text = spannableString
+            } else {
+                planDay = intent.extras?.getParcelable("planDay")!!
+                loadPlanDay(planDay!!)
+            }
             viewDetailBtn.setOnClickListener {
                 val intent = Intent(this, ExcerciseDetailActivity::class.java)
-                intent.putExtras(bundleOf("excercise" to planDay.exc, "isViewOnly" to true))
+                intent.putExtras(bundleOf("excercise" to planDay?.exc, "isViewOnly" to true))
                 slideActivity(intent)
             }
         }
+        setupPackageSpinner()
     }
 
     private fun loadPlanDay(planDay: PlanDay) {
@@ -78,7 +81,8 @@ class DayDetailActivity : ComposableBaseActivity() {
         packageSpinner = findViewById(R.id.packageSpinner)
         daySpinner = findViewById(R.id.dayinWeekSpinner)
         viewDetailBtn = findViewById(R.id.viewExcDetailBtn)
-        setupPackageSpinner()
+
+
         setupDaySpinner()
     }
 
@@ -99,16 +103,17 @@ class DayDetailActivity : ComposableBaseActivity() {
     }
 
     private fun setupPackageSpinner() {
-        // lay toan bo plan list load vao spinner
+        // lay toan bo plan list load vao spinner (package list)
         viewModel.getPlanList()
         viewModel.planList.observe(this) {
+
             val nameList = it.map { it.description }
             packageSpinner.adapter = ArrayAdapter(this,R.layout.item_spinner, nameList)
             selectedPlanId = viewModel.planList.value!![0].id
             // load selected item neu dc chon tu man hinh select
             var index = 0
             if (state == UseState.VIEW) {
-                index = nameList.indexOf(planDay.exc?.name)
+                index = nameList.indexOf(planDay?.exc?.name)
             }
             packageSpinner.setSelection(index)
         }
@@ -150,10 +155,15 @@ class DayDetailActivity : ComposableBaseActivity() {
     }
 
     override fun onUpdated() {
+        if (isDeleted) {
+            changeState(UseState.VIEW)
+            return
+        }
         if (!validateInput()) return
         val categoryId = intent.extras?.getString("categoryId")!!
         val excId = intent.extras?.getString("excId")!!
-        viewModel.updatePlanDay(selectedPlanId!!,planDay.categoryId,excId, selectedDay!!,planDay.day) { message ->
+
+        viewModel.updatePlanDay(selectedPlanId!!,planDay!!.categoryId,excId, selectedDay!!,planDay!!.day) { message ->
             if (message.id != null) {
                 Toast.makeText(
                     this,
@@ -213,13 +223,15 @@ class DayDetailActivity : ComposableBaseActivity() {
         }
 
         if (state == UseState.ADD) {
-//            sessionSpinner.visibility = View.VISIBLE
-//            sessionTitleTV.visibility = View.VISIBLE
             viewDetailBtn.visibility = View.INVISIBLE
         } else {
-//            sessionSpinner.visibility = View.GONE
-//            sessionTitleTV.visibility = View.GONE
             viewDetailBtn.visibility = View.VISIBLE
+        }
+        if (isDeleted) {
+            viewDetailBtn.visibility = View.INVISIBLE
+            excNameTextView.isEnabled = false
+            packageSpinner.isEnabled = false
+            daySpinner.isEnabled = false
         }
     }
 

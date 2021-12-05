@@ -38,7 +38,8 @@ import org.w3c.dom.Text
 class ExcerciseDetailActivity : ComposableBaseActivity() {
     val viewmodel: ExcerciseDetailVM by viewModels()
 
-    lateinit var container: LinearLayout
+    lateinit var stepLinearLayout: LinearLayout
+    lateinit var achievementLinearLayout: LinearLayout
     lateinit var nameEditText: EditText
     lateinit var difficultySpinner: Spinner
     lateinit var equipmentEditText: EditText
@@ -76,7 +77,8 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_excercise_detail)
         setupUI()
-        container = findViewById(R.id.detailContainer)
+        achievementLinearLayout = findViewById(R.id.achievementLayout)
+        stepLinearLayout = findViewById(R.id.stepLayout)
         addAchievementBtn = findViewById(R.id.addAchievement)
         addAchievementBtn.setOnClickListener { // tam thoi de sau khi co ui quan ly body stat roi moi tiep
             onAddAchievement(true)
@@ -132,11 +134,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val deleteBtn = achieveTicket.findViewById<Chip>(R.id.deleteAchieve)
         deleteBtn.visibility = if (isDeletable) View.VISIBLE else View.INVISIBLE
         deleteBtn.setOnClickListener {
-            container.removeView(achieveTicket)
+            achievementLinearLayout.removeView(achieveTicket)
             achievementTicketList.remove(achieveTicket)
         }
         achievementTicketList.add(achieveTicket)
-        container.addView(achieveTicket,container.childCount - 1)
+        achievementLinearLayout.addView(achieveTicket,achievementLinearLayout.childCount)
         return achieveTicket
     }
 
@@ -168,12 +170,12 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             stepPicImageViewList.removeAt(index)
             stepEditTextList.removeAt(index)
             stepTicketList.removeAt(index)
-            container.removeView(stepTicket)
+            stepLinearLayout.removeView(stepTicket)
 
         }
 
 
-        container.addView(stepTicket,container.childCount - achievementTicketList.size - 1)
+        stepLinearLayout.addView(stepTicket,stepLinearLayout.childCount)
         return stepTicket
     }
 

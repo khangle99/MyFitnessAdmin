@@ -20,6 +20,7 @@
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textAlignment="center"
             android:text="Excercise Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -32,13 +33,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_margin="18dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:text="Difficulty"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="18dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="Difficulty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_margin="18dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="Calories Factor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
        <LinearLayout
            android:orientation="horizontal"
@@ -52,20 +69,28 @@
                android:id="@+id/excDifficulty"
                android:layout_width="match_parent"
                android:layout_height="50dp"/>
-           <EditText
-               android:id="@+id/caloFactor"
-               android:hint="Calo Factor"
-               android:layout_weight="1"
-               android:layout_gravity="center"
-               android:inputType="number"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"/>
-           <TextView
-               android:text="Calories"
-               android:textSize="20sp"
-               android:layout_gravity="center"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/caloFactor"
+                    android:hint="Calo Factor"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:text="Kcal/Kg/Minute"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
        </LinearLayout>
         <TextView
             android:layout_margin="18dp"
@@ -87,6 +112,7 @@
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textAlignment="center"
             android:text="Timing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -166,6 +192,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:text="Nutri ratio"
+            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
       <LinearLayout
@@ -269,26 +296,62 @@
           </LinearLayout>
 
       </LinearLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <Button
+            <TextView
+                android:layout_margin="18dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="Tutorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_weight="2"
+                android:drawableLeft="@drawable/ic_baseline_add_24"
                 android:id="@+id/addMoreStep"
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
                 android:text="Add Step"
                 android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/stepLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="18dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:text="Achievement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <Button
                 android:backgroundTint="@color/orange"
                 android:layout_weight="1"
                 android:id="@+id/addAchievement"
-                android:layout_width="match_parent"
+                android:drawableLeft="@drawable/ic_baseline_add_24"
+                android:layout_width="wrap_content"
                 android:text="Add Achievement"
                 android:layout_margin="10dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/achievementLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:layout_gravity="center"

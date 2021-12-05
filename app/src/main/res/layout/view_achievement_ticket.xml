@@ -9,9 +9,10 @@
     <Spinner
         android:id="@+id/bodyStatSpinner"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/promiseValue"
@@ -27,9 +28,11 @@
         android:layout_height="wrap_content"/>
     <com.google.android.material.chip.Chip
         android:id="@+id/deleteAchieve"
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:backgroundTint="@color/red"
         android:visibility="invisible"
+        android:layout_gravity="center"
         android:text="Remove"
         android:textColor="@color/white"
         android:layout_height="50dp"
