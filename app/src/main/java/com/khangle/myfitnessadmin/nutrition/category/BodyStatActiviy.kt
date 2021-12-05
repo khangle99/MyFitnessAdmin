@@ -45,6 +45,9 @@ class BodyStatActiviy : BaseActivity() {
         recyclerView = findViewById(R.id.bodyStatRecycleview)
         progressBar = findViewById(R.id.nutCatProgress)
         adapter = BodyStatAdapter{
+            val frag =  AddStatDialogFragment(viewmodel)
+            frag.arguments = bundleOf("bodyStat" to it)
+           frag.show(supportFragmentManager,"showAddStat")
 
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
