@@ -58,7 +58,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     lateinit var progressBar: ProgressBar
     lateinit var selectedDifficulty: Difficulty
-    var pickedUriStringList: List<String>? = null
+
     var excercise: Excercise? = null
     lateinit var addMoreStepBtn: Button
     lateinit var addAchievementBtn: Button
@@ -69,7 +69,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     private val stepPicImageViewList = mutableListOf<ImageView>() // uri dc luu thong qua tag
     //lay index ra bang cach click vao ui xong kiem tra for each 2 mang tren
     private var achievementTicketList = mutableListOf<View>()
-    private lateinit var bodyStatList: List<BodyStat>
+
 
     private var isPickImage = false
 
@@ -207,24 +207,10 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         damEditText = findViewById(R.id.damET)
         tinhbotEditText = findViewById(R.id.tinhBotET)
         caloFactorEditText = findViewById(R.id.caloFactor)
-       // tutorialEditText = findViewById(R.id.excTutorial)
-//        imageRecyclerView = findViewById(R.id.imageList)
-//        pickImage = findViewById<Button>(R.id.pickImage)
+
         progressBar = findViewById(R.id.excDetailProgress)
         progressBar.visibility = View.GONE
-//        pickImage.setOnClickListener {
-//                val intent = Intent()
-//                intent.type = "image/*"
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-//                intent.action = Intent.ACTION_GET_CONTENT
-//                startActivityForResult(
-//                    Intent.createChooser(intent, "select pictures"),
-//                    99
-//                )
-//            }
-//        imageListAdapter = ImageRecyclerviewAdapter()
-//        imageRecyclerView.adapter = imageListAdapter
-//        imageRecyclerView.layoutManager = LinearLayoutManager(baseContext,RecyclerView.HORIZONTAL, false)
+
         if (intent.extras?.getBoolean("isViewOnly",false) == true) {
             addToPackBtn.visibility = View.INVISIBLE
         }
@@ -304,11 +290,14 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         for ((key, value) in fromJson.entrySet()) {
            val view = onAddAchievement(false)
             view.findViewById<EditText>(R.id.promiseValue).setText(value.asString)
+            // if not found show toast message
             val indexOf = spinnerValues?.indexOfFirst {
                 it.name == key
-            }?.let {
-                view.findViewById<Spinner>(R.id.bodyStatSpinner).setSelection(it)
-                viewmodel.bodyStatList.value?.get(it)?.unit ?: ""
+            }
+            if (indexOf != null && indexOf >= 0) {
+                view.findViewById<Spinner>(R.id.bodyStatSpinner).setSelection(indexOf)
+            } else {
+                Toast.makeText(this, "Ensure stat has been renamed, please change", Toast.LENGTH_LONG).show()
             }
         }
 
