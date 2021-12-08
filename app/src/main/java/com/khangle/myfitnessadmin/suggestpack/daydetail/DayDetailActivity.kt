@@ -33,6 +33,8 @@ class DayDetailActivity : ComposableBaseActivity() {
     private  var planDay: PlanDay? = null
     private val dayList = listOf("Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
     private var isDeleted = false
+    private var oldPlanId = ""
+    private var oldDay = ""
     val viewModel: DayDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,8 @@ class DayDetailActivity : ComposableBaseActivity() {
 
         } else {
             isDeleted = intent.extras!!.getBoolean("isDeleted", false)
+            oldPlanId = intent.extras?.getString("planId") ?: ""
+            oldDay = intent.extras?.getString("day") ?: ""
             if (isDeleted) {
                 viewDetailBtn.visibility = View.INVISIBLE
                 val spannableString = SpannableString("This Excercise has been deleted by admin! Please manually remove this reference")
@@ -108,14 +112,19 @@ class DayDetailActivity : ComposableBaseActivity() {
         viewModel.planList.observe(this) {
 
             val nameList = it.map { it.description }
+
             packageSpinner.adapter = ArrayAdapter(this,R.layout.item_spinner, nameList)
-            selectedPlanId = viewModel.planList.value!![0].id
-            // load selected item neu dc chon tu man hinh select
-            var index = 0
-            if (state == UseState.VIEW) {
-                index = nameList.indexOf(planDay?.exc?.name)
+            if (state == UseState.ADD) { // if add use first, else search for index
+                selectedPlanId = viewModel.planList.value!![0].id
+            } else {
+                // load selected item neu dc chon tu man hinh select
+                val index =  it.indexOfFirst { it.id == oldPlanId }
+
+                if (!isDeleted) {
+                    packageSpinner.setSelection(index)
+                }
             }
-            packageSpinner.setSelection(index)
+
         }
         packageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -163,7 +172,7 @@ class DayDetailActivity : ComposableBaseActivity() {
         val categoryId = intent.extras?.getString("categoryId")!!
         val excId = intent.extras?.getString("excId")!!
 
-        viewModel.updatePlanDay(selectedPlanId!!,planDay!!.categoryId,excId, selectedDay!!,planDay!!.day) { message ->
+        viewModel.updatePlanDay(oldPlanId,planDay!!.categoryId,excId, selectedDay!!,planDay!!.day) { message ->
             if (message.id != null) {
                 Toast.makeText(
                     this,
@@ -183,7 +192,7 @@ class DayDetailActivity : ComposableBaseActivity() {
     }
 
     override fun onDeleted() {
-        viewModel.deletePlanDay(selectedPlanId!!,selectedDay!!) { message ->
+        viewModel.deletePlanDay(oldPlanId, oldDay) { message ->
             if (message.id != null) {
                 Toast.makeText(
                     this,
@@ -210,13 +219,13 @@ class DayDetailActivity : ComposableBaseActivity() {
         when (state) {
             UseState.EDIT, UseState.ADD -> {
                 excNameTextView.isEnabled = true
-                packageSpinner.isEnabled = true
+
                 daySpinner.isEnabled = true
 
             }
             else -> {
                 excNameTextView.isEnabled = false
-                packageSpinner.isEnabled = false
+
                 daySpinner.isEnabled = false
 
             }
@@ -224,8 +233,10 @@ class DayDetailActivity : ComposableBaseActivity() {
 
         if (state == UseState.ADD) {
             viewDetailBtn.visibility = View.INVISIBLE
+            packageSpinner.isEnabled = true
         } else {
             viewDetailBtn.visibility = View.VISIBLE
+            packageSpinner.isEnabled = false
         }
         if (isDeleted) {
             viewDetailBtn.visibility = View.INVISIBLE

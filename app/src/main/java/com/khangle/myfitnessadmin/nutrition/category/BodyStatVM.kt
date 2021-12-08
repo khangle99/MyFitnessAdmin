@@ -27,6 +27,7 @@ class BodyStatVM @Inject constructor(private val repository: MyFitnessRepository
     fun deleteBodyStat(bodyStat: BodyStat, handle: (ResponseMessage) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val res = repository.deleteBodyStat(bodyStat.id)
+            print("")
             withContext(Dispatchers.Main) {
                 handle(res)
             }

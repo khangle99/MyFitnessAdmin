@@ -19,7 +19,7 @@
             android:textStyle="bold"
             android:gravity="center"
             android:drawableStart="@drawable/ic_admin"
-            android:text="Admin Management"
+            android:text="Quản lý Admin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.cardview.widget.CardView
@@ -41,7 +41,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textSize="30sp"
-                    android:text="Excercise"
+                    android:text="Bài tập"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
             </LinearLayout>
@@ -65,7 +65,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textSize="30sp"
-                    android:text="Body Stat"
+                    android:text="Chỉ số cơ thể"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
             </LinearLayout>
@@ -89,7 +89,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textSize="30sp"
-                    android:text="Suggest Package"
+                    android:text="Gói BT"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
             </LinearLayout>
@@ -113,7 +113,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:textSize="30sp"
-                    android:text="Report"
+                    android:text="Báo cáo"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"/>
             </LinearLayout>

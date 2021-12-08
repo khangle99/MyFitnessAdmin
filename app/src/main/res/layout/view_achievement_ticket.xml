@@ -17,6 +17,7 @@
     <EditText
         android:id="@+id/promiseValue"
         android:layout_weight="1"
+        android:inputType="numberDecimal"
         android:hint="Input"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>

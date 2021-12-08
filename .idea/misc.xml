@@ -10,12 +10,18 @@
         <entry key="app/src/main/res/layout/activity_excercise_detail.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/activity_excercise_list.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23177083333333334" />
+        <entry key="app/src/main/res/layout/activity_menu_detail.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/activity_most_use_excercise.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/activity_most_view_menu.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/activity_plan_detail.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/activity_report_main.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/activity_suggest.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/fragment_add_stat_dialog.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/item_body_stat.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.1875" />
         <entry key="app/src/main/res/layout/item_excercise.xml" value="0.26145833333333335" />
+        <entry key="app/src/main/res/layout/item_image.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/item_menu.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/item_plan.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/item_planday.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/item_spinner.xml" value="0.34010416666666665" />

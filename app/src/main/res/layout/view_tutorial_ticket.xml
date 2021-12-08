@@ -26,7 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="Step tutorial"/>
+                android:hint="Bước"/>
         </LinearLayout>
         <androidx.cardview.widget.CardView
             android:id="@+id/stepPicContainer"
@@ -46,7 +46,7 @@
                     android:layout_margin="10dp" />
                 <TextView
                     android:gravity="center"
-                    android:text="Click to choose image"
+                    android:text="Bấm để chọn ảnh"
                     android:id="@+id/guideTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

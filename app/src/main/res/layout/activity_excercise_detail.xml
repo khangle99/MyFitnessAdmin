@@ -21,13 +21,13 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:text="Excercise Name"
+            android:text="Tên Bài tập"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
             android:padding="10dp"
             android:background="@drawable/rounded_bkg"
-            android:hint="Excercise Name"
+            android:hint="Tên Bài tập"
             android:layout_margin="12dp"
             android:id="@+id/excName"
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:layout_weight="1"
-                android:text="Difficulty"
+                android:text="Độ khó"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
@@ -52,7 +52,7 @@
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:textAlignment="center"
-                android:text="Calories Factor"
+                android:text="Hệ số calo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -62,7 +62,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
            <Spinner
-               android:hint="Excercise Difficulty"
+               android:hint="Độ khó"
                android:layout_margin="10dp"
                android:layout_weight="1"
                android:background="@drawable/rounded_bkg"
@@ -76,11 +76,11 @@
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/caloFactor"
-                    android:hint="Calo Factor"
+                    android:hint="hệ số calo"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_gravity="center"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -97,11 +97,11 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="Equipment"
+            android:text="Yêu cầu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-            android:hint="Equipment"
+            android:hint="Yêu cầu"
             android:layout_margin="12dp"
             android:padding="10dp"
             android:background="@drawable/rounded_bkg"
@@ -113,7 +113,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:text="Timing"
+            android:text="Chỉ số thời gian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
       <LinearLayout
@@ -127,13 +127,13 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
               <TextView
-                  android:text="Turn:"
+                  android:text="Lượt:"
                   android:textSize="20dp"
                   android:layout_gravity="center"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <EditText
-                  android:hint="NoTurn"
+                  android:hint="Số lượt"
                   android:padding="10dp"
                   android:layout_weight="1"
                   android:inputType="number"
@@ -148,13 +148,13 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
               <TextView
-                  android:text="Sec:"
+                  android:text="Số giây:"
                   android:textSize="20dp"
                   android:layout_gravity="center"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <EditText
-                  android:hint="NoSec"
+                  android:hint="giây"
                   android:padding="10dp"
                   android:inputType="number"
                   android:layout_weight="1"
@@ -169,7 +169,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
               <TextView
-                  android:text="Gap:"
+                  android:text=":"
                   android:textSize="20dp"
                   android:layout_gravity="center"
                   android:layout_width="wrap_content"
@@ -191,7 +191,7 @@
             android:layout_margin="18dp"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="Nutri ratio"
+            android:text="Tỷ lệ dinh dưỡng"
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -206,14 +206,14 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
               <TextView
-                  android:text="Dam"
+                  android:text="Đạm"
                   android:textSize="20sp"
                   android:layout_marginBottom="10dp"
                   android:layout_gravity="center"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <EditText
-                  android:hint="Dam"
+                  android:hint="Đạm"
                   android:padding="10dp"
                   android:layout_margin="10dp"
                   android:inputType="number"
@@ -229,14 +229,14 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
               <TextView
-                  android:text="Tinh bot"
+                  android:text="Tinh bột"
                   android:textSize="20sp"
                   android:layout_marginBottom="10dp"
                   android:layout_gravity="center"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <EditText
-                  android:hint="Tinh bot"
+                  android:hint="Tinh bột"
                   android:layout_margin="8dp"
                   android:padding="10dp"
                   android:inputType="number"
@@ -253,14 +253,14 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
               <TextView
-                  android:text="Beo"
+                  android:text="Béo"
                   android:textSize="20sp"
                   android:layout_marginBottom="10dp"
                   android:layout_gravity="center"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
            <EditText
-               android:hint="Beo"
+               android:hint="éo"
                android:layout_margin="8dp"
                android:padding="10dp"
                android:layout_weight="1"
@@ -277,14 +277,14 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
               <TextView
-                  android:text="Khoang"
+                  android:text="Khoáng"
                   android:textSize="20sp"
                   android:layout_marginBottom="10dp"
                   android:layout_gravity="center"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"/>
               <EditText
-                  android:hint="Khoang"
+                  android:hint="Khoáng"
                   android:layout_margin="8dp"
                   android:padding="10dp"
                   android:layout_weight="1"
@@ -307,7 +307,7 @@
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:text="Tutorial"
+                android:text="Hướng dẫn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <Button
@@ -316,7 +316,7 @@
                 android:id="@+id/addMoreStep"
                 android:layout_width="match_parent"
                 android:layout_margin="10dp"
-                android:text="Add Step"
+                android:text="Thêm bước"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
@@ -334,7 +334,7 @@
                 android:textStyle="bold"
                 android:layout_weight="2"
                 android:layout_gravity="center"
-                android:text="Achievement"
+                android:text="Thành tựu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <Button
@@ -343,7 +343,7 @@
                 android:id="@+id/addAchievement"
                 android:drawableLeft="@drawable/ic_baseline_add_24"
                 android:layout_width="wrap_content"
-                android:text="Add Achievement"
+                android:text="Thêm thành tựu"
                 android:layout_margin="10dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
@@ -360,7 +360,7 @@
             android:layout_width="wrap_content"
             android:backgroundTint="@color/yellow"
             android:layout_margin="10dp"
-            android:text="Add to Package"
+            android:text="Thêm vào gói"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>

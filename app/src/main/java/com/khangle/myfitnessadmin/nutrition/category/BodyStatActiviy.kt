@@ -66,6 +66,7 @@ class BodyStatActiviy : BaseActivity() {
                 val item = adapter.currentList[position]
                 progressBar.visibility = View.VISIBLE
                 viewmodel.deleteBodyStat(item) {
+
                     progressBar.visibility = View.INVISIBLE
                     Toast.makeText(baseContext, "Deleted Session", Toast.LENGTH_SHORT).show()
                     viewmodel.getBodyStatList()

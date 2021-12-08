@@ -39,15 +39,16 @@ class PlanDetailActivity : ComposableBaseActivity() {
     lateinit var adapter: PlanDayAdapter
     lateinit var addExcerciseBtn: ExtendedFloatingActionButton
     lateinit var progressBar: ProgressBar
+    var plan: Plan? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plan_detail)
 
         setupUI()
-        val plan = intent.extras?.getParcelable<Plan>("plan")
+        plan = intent.extras?.getParcelable("plan")
         if (plan != null) {
-            currentCategoryId = plan.id
-            loadListForCategory(plan)
+            currentCategoryId = plan!!.id
+            loadListForCategory(plan!!)
         } else {
             progressBar.visibility = View.INVISIBLE
         }
@@ -73,10 +74,10 @@ class PlanDetailActivity : ComposableBaseActivity() {
             // mo den man hinh bai tap (tai su dung)
             val intent = Intent(this, DayDetailActivity::class.java)
             if (it.exc != null) {
-                val bundle = bundleOf("planDay" to it, "categoryId" to currentCategoryId, "excId" to it.excId)
+                val bundle = bundleOf("planDay" to it, "categoryId" to currentCategoryId, "excId" to it.excId, "planId" to plan?.id, "day" to it.day)
                 intent.putExtras(bundle)
             } else {
-                val bundle = bundleOf("isDeleted" to true, "categoryId" to currentCategoryId, "excId" to it.excId)
+                val bundle = bundleOf("isDeleted" to true, "categoryId" to currentCategoryId, "excId" to it.excId,"planId" to plan?.id,"day" to it.day)
                 intent.putExtras(bundle)
             }
 

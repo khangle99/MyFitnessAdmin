@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApplicationModule {
     const val BASE_URL = "https://myfitnessapi.herokuapp.com/"
-    const val BASE_URL2 = "http://192.168.1.10:5000/"
+    const val BASE_URL2 = "http://192.168.1.12:5000/"
     @Provides
     @Singleton
     fun provideClient(@ApplicationContext context: Context): OkHttpClient {

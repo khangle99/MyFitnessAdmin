@@ -14,7 +14,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:textStyle="bold"
-        android:text="Excercise Suggest Packages"
+        android:text="Gói Bài tập"
         android:layout_height="wrap_content"/>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator"
@@ -31,7 +31,7 @@
             android:id="@+id/addCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Plan"
+            android:text="Thêm Gói"
             android:textColor="@color/white"
             app:layout_anchor="@id/suggestRecyclerview"
             android:clickable="true"

@@ -15,7 +15,7 @@
             android:layout_margin="5dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="Name:"
+            android:text="Tên:"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_width="0dp"
@@ -26,12 +26,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Package Name"/>
+            android:hint="Tên gói"/>
     </LinearLayout>
     <TextView
         android:id="@+id/listTitle"
         app:layout_constraintTop_toBottomOf="@id/nameContainer"
-        android:text="Excercise Per Date List"
+        android:text="Danh sách BT"
         android:gravity="center"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -58,7 +58,7 @@
             android:id="@+id/addExcercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Excercise"
+            android:text="Thêm BT"
             android:textColor="@color/white"
             app:layout_anchor="@id/excerciseRecycler"
             android:clickable="true"

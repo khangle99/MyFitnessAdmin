@@ -15,7 +15,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:textStyle="bold"
-        android:text="Excercise Category"
+        android:text="Thể loại bài tập"
         android:layout_height="wrap_content"/>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator"
@@ -32,7 +32,7 @@
             android:id="@+id/addCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Category"
+            android:text="Thêm thể loại"
             android:textColor="@color/white"
             app:layout_anchor="@id/categoryRecycleview"
             android:clickable="true"

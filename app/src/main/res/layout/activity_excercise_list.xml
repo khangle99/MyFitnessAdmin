@@ -16,7 +16,7 @@
            android:layout_margin="5dp"
            android:layout_gravity="center"
            android:layout_weight="1"
-           android:text="Name:"
+           android:text="Tên:"
            android:textStyle="bold"
            android:textSize="20sp"
            android:layout_width="0dp"
@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Category Name"/>
+            android:hint="Tên thể loại"/>
     </LinearLayout>
     <androidx.cardview.widget.CardView
         android:id="@+id/imageContainer"
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"/>
             <TextView
                 android:gravity="center"
-                android:text="Click to choose image"
+                android:text="bấm để chọn ảnh"
                 android:id="@+id/guideTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -57,7 +57,7 @@
     <TextView
         android:id="@+id/listTitle"
         app:layout_constraintTop_toBottomOf="@id/imageContainer"
-        android:text="Excercist List"
+        android:text="Danh sách BT"
         android:gravity="center"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -84,7 +84,7 @@
             android:id="@+id/addExcercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Excercise"
+            android:text="Thêm BT"
             android:textColor="@color/white"
             app:layout_anchor="@id/excerciseRecycler"
             android:clickable="true"
