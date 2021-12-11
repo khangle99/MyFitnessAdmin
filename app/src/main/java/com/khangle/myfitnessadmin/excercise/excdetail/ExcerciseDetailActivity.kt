@@ -394,6 +394,18 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             return false
         }
 
+        // kiem tra trung achievement
+        val checkList = mutableListOf<String>()
+        for ( ticket in achievementTicketList) {
+            val statName = ticket.findViewById<Spinner>(R.id.bodyStatSpinner).selectedItem.toString()
+            if (checkList.contains(statName)) {
+                Toast.makeText(baseContext,"Repeat Achievement",Toast.LENGTH_SHORT).show()
+                return false
+            } else {
+                checkList.add(statName)
+            }
+        }
+
         return true
     }
 
