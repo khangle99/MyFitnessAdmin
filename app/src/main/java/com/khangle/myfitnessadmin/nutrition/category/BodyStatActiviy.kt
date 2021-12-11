@@ -2,6 +2,7 @@ package com.khangle.myfitnessadmin.nutrition.category
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -65,11 +66,21 @@ class BodyStatActiviy : BaseActivity() {
                 val position = viewHolder.adapterPosition
                 val item = adapter.currentList[position]
                 progressBar.visibility = View.VISIBLE
-                viewmodel.deleteBodyStat(item) {
+                viewmodel.deleteBodyStat(item) { message ->
+                    if (message.id != null) {
+                        progressBar.visibility = View.INVISIBLE
+                        Toast.makeText(baseContext, "Deleted Session", Toast.LENGTH_SHORT).show()
+                        viewmodel.getBodyStatList()
+                    } else {
+                        Toast.makeText(
+                            baseContext,
+                            "Lỗi khi thêm error: ${message.error}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        adapter.notifyDataSetChanged()
+                        progressBar.visibility = View.INVISIBLE
+                    }
 
-                    progressBar.visibility = View.INVISIBLE
-                    Toast.makeText(baseContext, "Deleted Session", Toast.LENGTH_SHORT).show()
-                    viewmodel.getBodyStatList()
                 }
             }
         }

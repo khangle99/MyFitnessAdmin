@@ -24,7 +24,9 @@ class ExcerciseDetailVM @Inject constructor(private val repository: MyFitnessRep
     val bodyStatList: LiveData<List<BodyStat>> = _bodyStatList
     fun getBodyStatList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _bodyStatList.postValue(repository.getBodyStat())
+            handleResponse {
+                _bodyStatList.postValue(repository.getBodyStat())
+            }
         }
     }
 

@@ -22,8 +22,11 @@ class DayDetailViewModel @Inject constructor(private val repository: MyFitnessRe
     val planList: LiveData<List<Plan>> = _planList
     fun getPlanList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _planList.postValue(repository.getSuggestPlans())
+            handleResponse {
+                _planList.postValue(repository.getSuggestPlans())
+            }
         }
+
     }
 
     fun updatePlanDay(sugId: String, categoryId: String, excId: String, day: String, oldDay: String, handle: (ResponseMessage) -> Unit){

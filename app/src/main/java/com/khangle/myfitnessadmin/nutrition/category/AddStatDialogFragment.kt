@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.khangle.myfitnessadmin.R
 import com.khangle.myfitnessadmin.model.BodyStat
@@ -22,6 +19,7 @@ class AddStatDialogFragment(private val bodyStatVM: BodyStatVM) : DialogFragment
     lateinit var dataTypeSpinner: Spinner
     private var isUpdate = false
     private var bodyId: String? = null
+    val dataList = arrayOf("Float", "Integer")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +36,7 @@ class AddStatDialogFragment(private val bodyStatVM: BodyStatVM) : DialogFragment
             bodyId = stat.id
             nameEditText.setText(stat.name)
             unitEditText.setText(stat.unit)
-            val index = bodyStatVM.bodyStatList.value?.indexOfFirst { it.unit.equals(stat.unit) } ?: 0
+            val index = dataList.indexOfFirst { it.equals(stat.dataType) }
             dataTypeSpinner.setSelection(index)
         }
 
@@ -74,7 +72,7 @@ class AddStatDialogFragment(private val bodyStatVM: BodyStatVM) : DialogFragment
 
 
     private fun setupSpinner() {
-        val dataList = arrayOf("Float", "Integer")
+
         val dataTypeAdapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_item, dataList)
         dataTypeSpinner.adapter = dataTypeAdapter
     }
@@ -93,8 +91,22 @@ class AddStatDialogFragment(private val bodyStatVM: BodyStatVM) : DialogFragment
         val activity = activity as BodyStatActiviy
         activity.progressBar.visibility = View.VISIBLE
         bodyId?.let {
-            bodyStatVM.updateBodyStat(it,nameEditText.text.toString(),dataTypeSpinner.selectedItem.toString(), unitEditText.text.toString()) {
-                bodyStatVM.getBodyStatList()
+            bodyStatVM.updateBodyStat(it,nameEditText.text.toString(),dataTypeSpinner.selectedItem.toString(), unitEditText.text.toString()) { message ->
+                if (message.id != null) {
+                    bodyStatVM.getBodyStatList()
+                    Toast.makeText(
+                        activity,
+                        "Thêm thành công với id: ${message.id}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        activity,
+                        "Lỗi khi thêm error: ${message.error}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
 
             }
         }

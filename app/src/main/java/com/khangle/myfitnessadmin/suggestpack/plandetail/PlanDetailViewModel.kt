@@ -20,24 +20,26 @@ class PlanDetailViewModel @Inject constructor(private val repository: MyFitnessR
     val dayList: LiveData<List<PlanDay>> = _dayList
     fun loadList(sugId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = repository.loadDayList(sugId).map {
-                async {
+          handleResponse {
+              val list = repository.loadDayList(sugId).map {
+                  async {
 
-                    val excercise = repository.getExcercise(it.categoryId, it.excId)
-                    if (excercise.categoryId != null) {
-                        it.exc = repository.getExcercise(it.categoryId, it.excId)
-                        val ensure =  repository.getStatEnsureList(it.excId,it.categoryId)
-                        it.exc!!.achieveEnsure = Gson().toJson(ensure)
-                    } else {
-                        it.exc = null
-                    }
+                      val excercise = repository.getExcercise(it.categoryId, it.excId)
+                      if (excercise.categoryId != null) {
+                          it.exc = repository.getExcercise(it.categoryId, it.excId)
+                          val ensure =  repository.getStatEnsureList(it.excId,it.categoryId)
+                          it.exc!!.achieveEnsure = Gson().toJson(ensure)
+                      } else {
+                          it.exc = null
+                      }
 
-                    it.day = it.id // do cung value
-                    it
+                      it.day = it.id // do cung value
+                      it
 
-                }
-            }.awaitAll()
-            _dayList.postValue(list)
+                  }
+              }.awaitAll()
+              _dayList.postValue(list)
+          }
         }
     }
 

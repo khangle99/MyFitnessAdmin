@@ -23,22 +23,24 @@ class ExcerciseListVM @Inject constructor(private val myFitnessRepository: MyFit
     val excerciseList: LiveData<List<Excercise>> = _excList
     fun loadList(categoryId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = myFitnessRepository.loadExcerciseList(categoryId)
+         handleResponse {
+             val list = myFitnessRepository.loadExcerciseList(categoryId)
 
-            val excercises = list.map { exc ->
-                val a = async {
-                   val ensure =  myFitnessRepository.getStatEnsureList(exc.id,categoryId)
-                 //   exc.achieveEnsure =  ensure
-                    exc.achieveEnsure = Gson().toJson(ensure)
-                    exc
-                }
-                a
-            }.awaitAll()
-            _excList.postValue(excercises)
-            excercises.forEach {
-                val a = it.achieveEnsure
-                print("")
-            }
+             val excercises = list.map { exc ->
+                 val a = async {
+                     val ensure =  myFitnessRepository.getStatEnsureList(exc.id,categoryId)
+                     //   exc.achieveEnsure =  ensure
+                     exc.achieveEnsure = Gson().toJson(ensure)
+                     exc
+                 }
+                 a
+             }.awaitAll()
+             _excList.postValue(excercises)
+             excercises.forEach {
+                 val a = it.achieveEnsure
+                 print("")
+             }
+         }
         }
     }
 
