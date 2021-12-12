@@ -130,7 +130,7 @@ class PlanDetailActivity : ComposableBaseActivity() {
     override fun invalidateView() {
         when (state) {
             UseState.EDIT -> {
-                addExcerciseBtn.isVisible = true
+                addExcerciseBtn.isVisible = false
                 categoryName.setReadOnly(false)
             }
             UseState.ADD -> {

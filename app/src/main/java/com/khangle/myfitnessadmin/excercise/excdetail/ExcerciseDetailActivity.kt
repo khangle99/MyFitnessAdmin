@@ -591,6 +591,9 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 invalidateStepInfo(true)
 //                tutorialEditText.setReadOnly(false)
 //                pickImage.visibility = View.VISIBLE
+                addToPackBtn.visibility = View.INVISIBLE
+                addAchievementBtn.visibility = View.VISIBLE
+                addMoreStepBtn.visibility = View.VISIBLE
             }
             else -> {
                 nameEditText.setReadOnly(true)
@@ -606,6 +609,9 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 khoangEditText.setReadOnly(true)
                 invalidateAchievement(false)
                 invalidateStepInfo(false)
+                addToPackBtn.visibility = View.VISIBLE
+                addAchievementBtn.visibility = View.INVISIBLE
+                addMoreStepBtn.visibility = View.INVISIBLE
 //                tutorialEditText.setReadOnly(true)
 //                pickImage.visibility = View.INVISIBLE
             }
