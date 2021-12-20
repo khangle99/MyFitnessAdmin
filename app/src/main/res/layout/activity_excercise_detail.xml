@@ -108,84 +108,104 @@
             android:id="@+id/excEquipment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_margin="18dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:text="Chỉ số thời gian"
+        <LinearLayout
+           android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_margin="18dp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="Chỉ số thời gian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_weight="2"
+                android:drawableLeft="@drawable/ic_baseline_add_24"
+                android:id="@+id/addMoreLevel"
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:text="Thêm Level"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/levelLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-      <LinearLayout
-          android:orientation="horizontal"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+<!--      <LinearLayout-->
+<!--          android:orientation="horizontal"-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="wrap_content">-->
 
-          <LinearLayout
-              android:layout_margin="10dp"
-              android:orientation="horizontal"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
-              <TextView
-                  android:text="Lượt:"
-                  android:textSize="20dp"
-                  android:layout_gravity="center"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"/>
-              <EditText
-                  android:hint="Số lượt"
-                  android:padding="10dp"
-                  android:layout_weight="1"
-                  android:inputType="number"
-                  android:background="@drawable/rounded_bkg"
-                  android:id="@+id/excNoTurn"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"/>
-          </LinearLayout>
-          <LinearLayout
-              android:orientation="horizontal"
-              android:layout_margin="10dp"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
-              <TextView
-                  android:text="Số giây:"
-                  android:textSize="20dp"
-                  android:layout_gravity="center"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"/>
-              <EditText
-                  android:hint="giây"
-                  android:padding="10dp"
-                  android:inputType="number"
-                  android:layout_weight="1"
-                  android:background="@drawable/rounded_bkg"
-                  android:id="@+id/excNoSec"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"/>
-          </LinearLayout>
-          <LinearLayout
-              android:orientation="horizontal"
-              android:layout_margin="10dp"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
-              <TextView
-                  android:text=":"
-                  android:textSize="20dp"
-                  android:layout_gravity="center"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"/>
-              <EditText
-                  android:hint="NoGap"
-                  android:padding="10dp"
-                  android:layout_weight="1"
-                  android:inputType="number"
-                  android:background="@drawable/rounded_bkg"
-                  android:id="@+id/excNoGap"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"/>
-          </LinearLayout>
+<!--          <LinearLayout-->
+<!--              android:layout_margin="10dp"-->
+<!--              android:orientation="horizontal"-->
+<!--              android:layout_width="wrap_content"-->
+<!--              android:layout_height="wrap_content">-->
+<!--              <TextView-->
+<!--                  android:text="Lượt:"-->
+<!--                  android:textSize="20dp"-->
+<!--                  android:layout_gravity="center"-->
+<!--                  android:layout_width="wrap_content"-->
+<!--                  android:layout_height="wrap_content"/>-->
+<!--              <EditText-->
+<!--                  android:hint="Số lượt"-->
+<!--                  android:padding="10dp"-->
+<!--                  android:layout_weight="1"-->
+<!--                  android:inputType="number"-->
+<!--                  android:background="@drawable/rounded_bkg"-->
+<!--                  android:id="@+id/excNoTurn"-->
+<!--                  android:layout_width="match_parent"-->
+<!--                  android:layout_height="wrap_content"/>-->
+<!--          </LinearLayout>-->
+<!--          <LinearLayout-->
+<!--              android:orientation="horizontal"-->
+<!--              android:layout_margin="10dp"-->
+<!--              android:layout_width="wrap_content"-->
+<!--              android:layout_height="wrap_content">-->
+<!--              <TextView-->
+<!--                  android:text="Số giây:"-->
+<!--                  android:textSize="20dp"-->
+<!--                  android:layout_gravity="center"-->
+<!--                  android:layout_width="wrap_content"-->
+<!--                  android:layout_height="wrap_content"/>-->
+<!--              <EditText-->
+<!--                  android:hint="giây"-->
+<!--                  android:padding="10dp"-->
+<!--                  android:inputType="number"-->
+<!--                  android:layout_weight="1"-->
+<!--                  android:background="@drawable/rounded_bkg"-->
+<!--                  android:id="@+id/excNoSec"-->
+<!--                  android:layout_width="match_parent"-->
+<!--                  android:layout_height="wrap_content"/>-->
+<!--          </LinearLayout>-->
+<!--          <LinearLayout-->
+<!--              android:orientation="horizontal"-->
+<!--              android:layout_margin="10dp"-->
+<!--              android:layout_width="wrap_content"-->
+<!--              android:layout_height="wrap_content">-->
+<!--              <TextView-->
+<!--                  android:text=":"-->
+<!--                  android:textSize="20dp"-->
+<!--                  android:layout_gravity="center"-->
+<!--                  android:layout_width="wrap_content"-->
+<!--                  android:layout_height="wrap_content"/>-->
+<!--              <EditText-->
+<!--                  android:hint="NoGap"-->
+<!--                  android:padding="10dp"-->
+<!--                  android:layout_weight="1"-->
+<!--                  android:inputType="number"-->
+<!--                  android:background="@drawable/rounded_bkg"-->
+<!--                  android:id="@+id/excNoGap"-->
+<!--                  android:layout_width="match_parent"-->
+<!--                  android:layout_height="wrap_content"/>-->
+<!--          </LinearLayout>-->
 
-      </LinearLayout>
+<!--      </LinearLayout>-->
 
  <TextView
             android:layout_margin="18dp"

@@ -40,12 +40,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     lateinit var stepLinearLayout: LinearLayout
     lateinit var achievementLinearLayout: LinearLayout
+    lateinit var levelLayout: LinearLayout
     lateinit var nameEditText: EditText
     lateinit var difficultySpinner: Spinner
     lateinit var equipmentEditText: EditText
-    lateinit var noTurnEditText: EditText
-    lateinit var noGapEditText: EditText
-    lateinit var noSecEditText: EditText
+
     lateinit var caloFactorEditText: EditText
     lateinit var addToPackBtn: Button
 
@@ -61,6 +60,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
     var excercise: Excercise? = null
     lateinit var addMoreStepBtn: Button
+    lateinit var addMoreLevel: Button
     lateinit var addAchievementBtn: Button
     private var previousClickStepImageView: ImageView? = null
     private val stepTicketList = mutableListOf<View>()
@@ -69,6 +69,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     private val stepPicImageViewList = mutableListOf<ImageView>() // uri dc luu thong qua tag
     //lay index ra bang cach click vao ui xong kiem tra for each 2 mang tren
     private var achievementTicketList = mutableListOf<View>()
+    private var levelTicketList = mutableListOf<View>()
 
 
     private var isPickImage = false
@@ -78,6 +79,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         setContentView(R.layout.activity_excercise_detail)
         setupUI()
         achievementLinearLayout = findViewById(R.id.achievementLayout)
+        levelLayout = findViewById(R.id.levelLayout)
         stepLinearLayout = findViewById(R.id.stepLayout)
         addAchievementBtn = findViewById(R.id.addAchievement)
         addAchievementBtn.setOnClickListener { // tam thoi de sau khi co ui quan ly body stat roi moi tiep
@@ -86,6 +88,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         addMoreStepBtn = findViewById(R.id.addMoreStep)
         addMoreStepBtn.setOnClickListener {
             onAddMoreStepClick(true)
+        }
+
+        addMoreLevel = findViewById(R.id.addMoreLevel)
+        addMoreLevel.setOnClickListener {
+            onAddLevel(true)
         }
 
         val excerciserReceive = intent.extras?.getParcelable<Excercise>("excercise")
@@ -140,6 +147,20 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         achievementTicketList.add(achieveTicket)
         achievementLinearLayout.addView(achieveTicket,achievementLinearLayout.childCount)
         return achieveTicket
+    }
+
+    private fun onAddLevel(isDeletable: Boolean): View {
+        val levelTicket = layoutInflater.inflate(R.layout.view_level_ticket, null)
+
+        val deleteBtn = levelTicket.findViewById<Chip>(R.id.removeBtn)
+        deleteBtn.visibility = if (isDeletable) View.VISIBLE else View.INVISIBLE
+        deleteBtn.setOnClickListener {
+            levelLayout.removeView(levelTicket)
+            levelTicketList.remove(levelTicket)
+        }
+        levelTicketList.add(levelTicket)
+        levelLayout.addView(levelTicket,levelLayout.childCount)
+        return levelTicket
     }
 
     private fun onAddMoreStepClick(isDeletable: Boolean): View {
@@ -199,9 +220,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val difficultyStringList = Difficulty.values().map { it.name }
         difficultySpinner.adapter = ArrayAdapter(baseContext,R.layout.item_spinner, difficultyStringList)
         equipmentEditText = findViewById(R.id.excEquipment)
-        noTurnEditText = findViewById(R.id.excNoTurn)
-        noGapEditText = findViewById(R.id.excNoGap)
-        noSecEditText = findViewById(R.id.excNoSec)
+
         beoEditText = findViewById(R.id.beoET)
         khoangEditText = findViewById(R.id.vitET)
         damEditText = findViewById(R.id.damET)
@@ -257,9 +276,6 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
 
         equipmentEditText.setText(excercise.equipment)
 
-        noTurnEditText.setText(excercise.noTurn.toString())
-        noGapEditText.setText(excercise.noGap.toString())
-        noSecEditText.setText(excercise.noSec.toString())
         caloFactorEditText.setText(excercise.caloFactor.toString())
         val nutriFactorStr = excercise.nutriFactor
         val split: Array<String> = nutriFactorStr.split("-").toTypedArray()
@@ -284,6 +300,16 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 it.tag = urlString
             }
         }
+
+        // laod level ticket
+        excercise.levelJSON.forEach { levelTitle, timeArray ->
+            val view = onAddLevel(false)
+            view.findViewById<EditText>(R.id.levelTitle).setText(levelTitle)
+            view.findViewById<EditText>(R.id.excNoTurn).setText(timeArray[0].toString())
+            view.findViewById<EditText>(R.id.excNoSec).setText(timeArray[1].toString())
+            view.findViewById<EditText>(R.id.excNoGap).setText(timeArray[2].toString())
+        }
+
         //load achievement tu json string map -> sang view voi moi entries
         val spinnerValues = viewmodel.bodyStatList.value
         val fromJson = Gson().fromJson(excercise.achieveEnsure, JsonObject::class.java)
@@ -324,18 +350,6 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             caloFactorEditText.setError("Không được để trống factor")
             return false
         }
-        if (noGapEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            noGapEditText.setError("Không được để trống noGap")
-            return false
-        }
-        if (noSecEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            noSecEditText.setError("Không được để trống noGap")
-            return false
-        }
-        if (noTurnEditText.getText().toString().trim { it <= ' ' }.length == 0) {
-            noTurnEditText.setError("Không được để trống noGap")
-            return false
-        }
 
         if (beoEditText.getText().toString().trim { it <= ' ' }.length == 0) {
             beoEditText.setError("Không được để trống noGap")
@@ -360,6 +374,15 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         }
         if (hasEmptyPromiseField) {
             Toast.makeText(baseContext,"There is empty achievement value",Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        // validate level
+        val hasEmptyLevelField = levelTicketList.any {
+            it.findViewById<EditText>(R.id.levelTitle).text.toString().equals("")
+        }
+        if (hasEmptyLevelField) {
+            Toast.makeText(baseContext,"There is empty level title value",Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -419,6 +442,18 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         return Gson().toJson(achievementMap)
     }
 
+    private fun extractLevelMap(): Map<String, Array<Int>> {
+        val levelMap = mutableMapOf<String, Array<Int>>()
+        levelTicketList.forEach {
+            val levelTitle = it.findViewById<EditText>(R.id.levelTitle).text.toString()
+            val noTurn = it.findViewById<EditText>(R.id.excNoTurn).text.toString().toInt()
+            val noSec = it.findViewById<EditText>(R.id.excNoSec).text.toString().toInt()
+            val noGap = it.findViewById<EditText>(R.id.excNoGap).text.toString().toInt()
+            levelMap.put(levelTitle, arrayOf(noTurn, noSec, noGap))
+        }
+        return levelMap
+    }
+
     private fun extractStepInfoMap(): Map<String, String> {
         val stepInfoMap = mutableMapOf<String, String>()
         stepTicketList.forEach {
@@ -436,9 +471,7 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val name = nameEditText.text.toString()
         val equip = equipmentEditText.text.toString()
         val diff = selectedDifficulty.raw
-        val noTurn = noTurnEditText.text.toString().toInt()
-        val noGap = noGapEditText.text.toString().toInt()
-        val noSec = noSecEditText.text.toString().toInt()
+
         val caloFactor = caloFactorEditText.text.toString().toFloat()
         val dam = damEditText.text.toString().toInt()
         val beo = beoEditText.text.toString().toInt()
@@ -456,6 +489,11 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         }
         // get achievement list
         val achievementJSON = extractAchievementJSONString()
+
+        // get map level
+        val levelMap = extractLevelMap()
+
+
         // get stepMap
         val tutorialArray = stepEditTextList.map {
             it.text.toString()
@@ -464,7 +502,8 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
             it.tag.toString()
         }
 
-        val excercise = Excercise("",name,diff,equip,noTurn,noSec,noGap,caloFactor, tutorialArray, listOf(),achievementJSON,0,
+
+        val excercise = Excercise("",name,diff,equip,caloFactor, tutorialArray, levelMap, listOf(),achievementJSON,0,
             mapOf(),catId, nutriStr)
 
         viewmodel.createExcercise(
@@ -498,9 +537,6 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         excercise!!.name = nameEditText.text.toString()
         excercise!!.equipment = equipmentEditText.text.toString()
         excercise!!.difficulty = selectedDifficulty.raw
-        excercise!!.noTurn = noTurnEditText.text.toString().toInt()
-        excercise!!.noGap = noGapEditText.text.toString().toInt()
-        excercise!!.noSec = noSecEditText.text.toString().toInt()
         excercise!!.caloFactor = caloFactorEditText.text.toString().toFloat()
         val dam = damEditText.text.toString().toInt()
         val beo = beoEditText.text.toString().toInt()
@@ -519,6 +555,10 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
         val tutorialArray = stepEditTextList.map {
             it.text.toString()
         }
+
+        val levelMap = extractLevelMap()
+        excercise!!.levelJSON = levelMap
+
         excercise!!.tutorial = tutorialArray
         val achievementJSON = extractAchievementJSONString()
         excercise!!.achieveEnsure = achievementJSON
@@ -580,14 +620,13 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 difficultySpinner.isEnabled = true
                 equipmentEditText.setReadOnly(false)
                 caloFactorEditText.setReadOnly(false)
-                noSecEditText.setReadOnly(false)
-                noGapEditText.setReadOnly(false)
-                noTurnEditText.setReadOnly(false)
+
                 beoEditText.setReadOnly(false)
                 damEditText.setReadOnly(false)
                 tinhbotEditText.setReadOnly(false)
                 khoangEditText.setReadOnly(false)
                 invalidateAchievement(true)
+                invalidateLevel(true)
                 invalidateStepInfo(true)
 //                tutorialEditText.setReadOnly(false)
 //                pickImage.visibility = View.VISIBLE
@@ -600,14 +639,13 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
                 difficultySpinner.isEnabled = false
                 equipmentEditText.setReadOnly(true)
                 caloFactorEditText.setReadOnly(true)
-                noSecEditText.setReadOnly(true)
-                noGapEditText.setReadOnly(true)
-                noTurnEditText.setReadOnly(true)
+
                 beoEditText.setReadOnly(true)
                 damEditText.setReadOnly(true)
                 tinhbotEditText.setReadOnly(true)
                 khoangEditText.setReadOnly(true)
                 invalidateAchievement(false)
+                invalidateLevel(false)
                 invalidateStepInfo(false)
                 addToPackBtn.visibility = View.VISIBLE
                 addAchievementBtn.visibility = View.INVISIBLE
@@ -621,6 +659,12 @@ class ExcerciseDetailActivity : ComposableBaseActivity() {
     private fun invalidateAchievement(isEnable: Boolean) {
         achievementTicketList.forEach {
             it.findViewById<Chip>(R.id.deleteAchieve).visibility = if (isEnable) View.VISIBLE else View.INVISIBLE
+        }
+    }
+
+    private fun invalidateLevel(isEnable: Boolean) {
+        levelTicketList.forEach {
+            it.findViewById<Chip>(R.id.removeBtn).visibility = if (isEnable) View.VISIBLE else View.INVISIBLE
         }
     }
 

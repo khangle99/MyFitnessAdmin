@@ -26,6 +26,7 @@
         <entry key="app/src/main/res/layout/item_planday.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/layout/item_spinner.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/view_achievement_ticket.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/view_level_ticket.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/view_tutorial_ticket.xml" value="0.34010416666666665" />
       </map>
     </option>

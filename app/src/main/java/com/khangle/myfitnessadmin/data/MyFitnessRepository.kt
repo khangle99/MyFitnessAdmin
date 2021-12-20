@@ -2,6 +2,7 @@ package com.khangle.myfitnessadmin.data
 
 import android.content.Context
 import androidx.core.net.toUri
+import com.google.gson.Gson
 import com.khangle.myfitnessadmin.data.network.MyFitnessService
 import com.khangle.myfitnessadmin.model.*
 import com.khangle.myfitnessadmin.util.FileUtility
@@ -10,6 +11,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import javax.inject.Inject
 
 
@@ -87,22 +89,21 @@ class MyFitnessRepository @Inject constructor(
         val excName = excercise.name.toRequestBody("text/plain".toMediaTypeOrNull())
         val excDiff = excercise.difficulty.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val excEquip = excercise.equipment.toRequestBody("text/plain".toMediaTypeOrNull())
-        val noTurn = excercise.noTurn.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        val noSec = excercise.noSec.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        val noGap = excercise.noGap.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+//        val noTurn = excercise.noTurn.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+//        val noSec = excercise.noSec.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+//        val noGap = excercise.noGap.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val caloFactor = excercise.caloFactor.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val nutriFactor = excercise.nutriFactor.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val catIdRequestBody = catId.toRequestBody("text/plain".toMediaTypeOrNull())
         val achievement = excercise.achieveEnsure.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val levelMap = Gson().toJson(excercise.levelJSON).toRequestBody("text/plain".toMediaTypeOrNull())
 
         return myFitnessService.postExcercise(
             photoList,
             excName,
             excDiff,
             excEquip,
-            noTurn,
-            noSec,
-            noGap,
+            levelMap,
             achievement,
             caloFactor,
             nutriFactor,
@@ -125,9 +126,7 @@ class MyFitnessRepository @Inject constructor(
             val part = MultipartBody.Part.createFormData("picSteps", file.name, fileRequestBody)
             photoList.add(part)
         }
-        val noTurn = excercise.noTurn.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        val noSec = excercise.noSec.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        val noGap = excercise.noGap.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
         val caloFactor = excercise.caloFactor.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val nutriFactor = excercise.nutriFactor.toString().toRequestBody("text/plain".toMediaTypeOrNull())
         val achievement = excercise.achieveEnsure.toString().toRequestBody("text/plain".toMediaTypeOrNull())
@@ -136,15 +135,14 @@ class MyFitnessRepository @Inject constructor(
         val excEquip = excercise.equipment.toRequestBody("text/plain".toMediaTypeOrNull())
         val catIdRequestBody = catId.toRequestBody("text/plain".toMediaTypeOrNull())
         val idRequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
+        val levelMap = Gson().toJson(excercise.levelJSON).toRequestBody("text/plain".toMediaTypeOrNull())
 
         return myFitnessService.updateExcercise(
             photoList,
             excName,
             excDiff,
             excEquip,
-            noTurn,
-            noSec,
-            noGap,
+            levelMap,
             achievement,
             excercise.tutorial,
             caloFactor,

@@ -10,11 +10,9 @@ class Excercise(
     var name: String,
     var difficulty: Int,
     var equipment: String,
-    var noTurn: Int,
-    var noSec: Int,
-    var noGap: Int,
     var caloFactor: Float,
     var tutorial: List<String>,
+    var levelJSON: Map<String, Array<Int>>,
     val picSteps: List<String>,
     var achieveEnsure: String, // json
     val addedCount: Int,
